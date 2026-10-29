@@ -5,6 +5,17 @@ import { getProjectById } from "@/data/projects";
 
 const meta = getSectionMeta("skills");
 
+/** One hue per skill group — a curated rotation, independent of the accent. */
+const groupHues: Record<string, string> = {
+  languages: "#0891b2",
+  frontend: "#6d4aff",
+  backend: "#d97706",
+  databases: "#059669",
+  automation: "#db2777",
+  systems: "#4f46e5",
+  aiml: "#7c3aed",
+};
+
 export function Skills() {
   return (
     <SectionShell
@@ -17,10 +28,12 @@ export function Skills() {
       <div className="grid gap-4 md:grid-cols-2">
         {skillGroups.map((group) => (
           <div key={group.id} className="rounded-xl border border-line bg-surface p-5">
-            <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-faint">
-              <span aria-hidden="true" className="mr-2 text-accent-ink">
-                //
-              </span>
+            <h3 className="mb-4 flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-faint">
+              <span
+                aria-hidden="true"
+                className="inline-block size-2.5 rounded-[4px]"
+                style={{ backgroundColor: groupHues[group.id] ?? "var(--accent)" }}
+              />
               {group.label}
             </h3>
             <ul className="flex flex-wrap gap-2" aria-label={group.label}>

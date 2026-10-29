@@ -28,7 +28,7 @@ describe("PreferencesProvider", () => {
 
   it("starts from defaults when storage is empty", () => {
     const { result } = renderProvider();
-    expect(result.current.preferences.theme).toBe("dark");
+    expect(result.current.preferences.theme).toBe("light");
     expect(result.current.persisted).toBe(false);
   });
 
@@ -88,7 +88,7 @@ describe("PreferencesProvider", () => {
       result.current.moveSection(0, 3);
     });
     act(() => result.current.resetAll());
-    await waitFor(() => expect(result.current.preferences.theme).toBe("dark"));
+    await waitFor(() => expect(result.current.preferences.theme).toBe("light"));
     expect(result.current.persisted).toBe(false);
     expect(window.localStorage.getItem(STORAGE_KEY)).toBeNull();
   });
@@ -100,7 +100,7 @@ describe("customization panel interactions (light DOM integration)", () => {
     return (
       <div>
         <span data-testid="theme">{preferences.theme}</span>
-        <button onClick={() => setTheme("light")}>go light</button>
+        <button onClick={() => setTheme("dark")}>go dark</button>
       </div>
     );
   }
@@ -113,10 +113,10 @@ describe("customization panel interactions (light DOM integration)", () => {
         <PanelProbe />
       </PreferencesProvider>,
     );
-    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
-    await user.click(screen.getByText("go light"));
     expect(screen.getByTestId("theme")).toHaveTextContent("light");
-    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY)!).theme).toBe("light");
+    await user.click(screen.getByText("go dark"));
+    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
+    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY)!).theme).toBe("dark");
   });
 });
 

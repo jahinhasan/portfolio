@@ -49,7 +49,7 @@ describe("validatePreferences", () => {
       projectLayout: "table",
       featuredOverrides: { shopsync: "yes", bogusProject: true, "snake-agent": false },
     });
-    expect(result?.theme).toBe("dark");
+    expect(result?.theme).toBe("light");
     expect(result?.accent).toBe("#6d4aff");
     expect(result?.projectLayout).toBe("grid");
     // Unknown project ids stripped; boolean checked.

@@ -2,7 +2,8 @@
 
 Personal portfolio for **Md. Jahin Hasan** — CSE undergraduate at BAUST, Rangpur, focused on
 web development and automation. Single-page React app, no backend, everything a visitor
-customizes stays in their own browser.
+customizes stays in their own browser. White-first design with a dark mode, a signature
+violet→cyan→rose gradient, and a hero portrait.
 
 ## Stack
 

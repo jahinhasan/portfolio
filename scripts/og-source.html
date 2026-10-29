@@ -6,87 +6,84 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
-    background: #0a0b0f;
+    background: #f7f7fb;
     font-family: -apple-system, "Segoe UI", "Inter", system-ui, sans-serif;
     position: relative;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
     padding: 0 84px;
   }
-  /* subtle grid backdrop, same as the site */
-  body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+  /* pastel color field */
+  .blob { position: absolute; border-radius: 9999px; filter: blur(70px); }
+  .b1 { width: 480px; height: 480px; top: -160px; right: 200px;
+        background: radial-gradient(circle, rgb(109 74 255 / 0.22), transparent 62%); }
+  .b2 { width: 380px; height: 380px; bottom: -140px; left: -80px;
+        background: radial-gradient(circle, rgb(8 145 178 / 0.18), transparent 60%); }
+  .b3 { width: 320px; height: 320px; top: 120px; left: 420px;
+        background: radial-gradient(circle, rgb(219 39 119 / 0.12), transparent 60%); }
+  .grid {
+    position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      linear-gradient(rgb(16 18 26 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(16 18 26 / 0.05) 1px, transparent 1px);
     background-size: 44px 44px;
-    mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 90% 80% at 40% 45%, black 30%, transparent 78%);
   }
-  .glow {
-    position: absolute;
-    width: 620px; height: 620px;
-    right: -160px; top: -180px;
-    background: radial-gradient(circle, rgba(109,74,255,0.28) 0%, transparent 62%);
-  }
+  .content { position: relative; max-width: 760px; }
   .kicker {
-    position: relative;
-    color: #8f8fa8;
-    font-size: 22px;
+    color: #6d4aff;
+    font-size: 21px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    margin-bottom: 26px;
-    font-weight: 600;
+    margin-bottom: 24px;
+    font-weight: 700;
   }
-  .kicker .mark { color: #8b76ff; margin-right: 14px; }
   h1 {
-    position: relative;
-    color: #f2f3f8;
-    font-size: 84px;
-    line-height: 1.04;
+    color: #171a24;
+    font-size: 78px;
+    line-height: 1.05;
     letter-spacing: -0.025em;
     font-weight: 800;
-    max-width: 920px;
   }
-  h1 .accent { color: #8b76ff; }
-  .role {
-    position: relative;
-    margin-top: 30px;
-    color: #a4aab8;
-    font-size: 30px;
-    font-weight: 500;
+  .grad {
+    background-image: linear-gradient(100deg, #6d4aff 0%, #0891b2 48%, #db2777 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
+  .role { margin-top: 26px; color: #4d5468; font-size: 28px; font-weight: 500; }
   .role .dot { color: #6d4aff; margin: 0 14px; }
   .footer {
-    position: absolute;
-    bottom: 56px;
-    left: 84px;
-    display: flex;
-    gap: 34px;
-    color: #6d7280;
-    font-size: 21px;
+    position: absolute; bottom: 52px; left: 84px;
+    display: flex; gap: 32px;
+    color: #7b8194; font-size: 20px;
     font-family: "JetBrains Mono", ui-monospace, monospace;
   }
-  .badge {
-    position: absolute;
-    top: 60px; right: 84px;
-    width: 92px; height: 92px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #6d4aff 0%, #4630b8 100%);
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 40px; font-weight: 800; letter-spacing: -0.02em;
-    box-shadow: 0 18px 44px rgba(109,74,255,0.35);
+  .portrait { position: absolute; right: 84px; top: 96px; width: 300px; }
+  .ring {
+    background: conic-gradient(from 210deg, #6d4aff, #0891b2, #db2777, #f59e0b, #6d4aff);
+    border-radius: 28px; padding: 4px;
+    box-shadow: 0 28px 64px -24px rgb(109 74 255 / 0.5);
+  }
+  .ring img {
+    display: block; width: 100%; height: 356px; object-fit: cover; object-position: top;
+    border-radius: 24px;
   }
 </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <div class="badge">JH</div>
-  <div class="kicker"><span class="mark">◇</span>PORTFOLIO</div>
-  <h1>Md. Jahin Hasan<br /><span class="accent">Software Developer</span></h1>
-  <div class="role">Web Development <span class="dot">·</span> Automation</div>
+  <div class="grid"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="content">
+    <div class="kicker">◇ PORTFOLIO</div>
+    <h1>Md. Jahin Hasan<br /><span class="grad">Software Developer</span></h1>
+    <div class="role">Web Development <span class="dot">·</span> Automation</div>
+  </div>
+  <div class="portrait">
+    <div class="ring"><img src="../src/assets/jahin.jpg" alt="" /></div>
+  </div>
   <div class="footer">
     <span>github.com/jahinhasan</span>
     <span>BAUST, Rangpur</span>

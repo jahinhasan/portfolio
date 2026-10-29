@@ -63,6 +63,9 @@ async function main() {
   check("panel opens", await page.getByRole("dialog", { name: /customize this portfolio/i }).isVisible());
   await page.screenshot({ path: `${SHOTS}/02-panel.png` });
 
+  // Round-trip both themes: default is light, so flip to dark and back.
+  await page.getByRole("radio", { name: "dark" }).click();
+  check("dark theme applies", (await page.evaluate(() => document.documentElement.dataset.theme)) === "dark");
   await page.getByRole("radio", { name: "light" }).click();
   check("light theme applies", (await page.evaluate(() => document.documentElement.dataset.theme)) === "light");
   await page.screenshot({ path: `${SHOTS}/03-light.png` });
@@ -100,7 +103,7 @@ async function main() {
   await page.waitForTimeout(200);
   const navReset = await page.locator("header nav ul a").evaluateAll((els) => els.map((a) => a.textContent?.trim()));
   check("reset restores nav order", navReset[0] === "About" && navReset[1] === "Skills", "checked below");
-  check("reset restores dark theme", (await page.evaluate(() => document.documentElement.dataset.theme)) === "dark");
+  check("reset restores light theme", (await page.evaluate(() => document.documentElement.dataset.theme)) === "light");
   const storedAfterReset = await page.evaluate(() => window.localStorage.getItem("jh-portfolio-prefs"));
   check("reset clears stored prefs", storedAfterReset === null);
   await page.keyboard.press("Escape");

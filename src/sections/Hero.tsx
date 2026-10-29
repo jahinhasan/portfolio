@@ -1,13 +1,21 @@
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, Copy, Download, FolderGit2, Mail } from "lucide-react";
+import { ArrowDown, Check, Copy, Download, FolderGit2, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { useCopyToClipboard } from "@/hooks/useClipboard";
-import { Check } from "lucide-react";
+import portrait from "@/assets/jahin.jpg";
+
+/** Floating labels around the portrait — hue-coded, matching the brand mix. */
+const chips = [
+  { label: "Web Development", hue: "#6d4aff", className: "left-[-2.5rem] top-[14%] lg:left-[-3.5rem]" },
+  { label: "Automation", hue: "#0891b2", className: "right-[-1.5rem] top-[44%] lg:right-[-2.5rem]" },
+  { label: "Intelligent Systems", hue: "#db2777", className: "bottom-[10%] left-[-1rem] lg:left-[-2rem]" },
+] as const;
 
 /**
- * Landing hero: positioning, headline, CTAs, and an abstract workflow-graph
- * visual (SVG, accent-reactive, disabled under reduced motion).
+ * Landing hero: positioning, headline, CTAs, and the owner's portrait in a
+ * gradient frame with floating discipline chips. The pastel color field and
+ * animations are decorative and switched off under reduced motion.
  */
 export function Hero() {
   const { status, copy } = useCopyToClipboard();
@@ -15,6 +23,7 @@ export function Hero() {
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="relative overflow-hidden">
+      <div className="hero-glow" aria-hidden="true" />
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 pb-20 pt-28 sm:px-8 sm:pt-36 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pb-28">
         <div>
           <motion.p
@@ -36,8 +45,8 @@ export function Hero() {
             className="max-w-2xl font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance text-ink sm:text-5xl lg:text-[3.4rem]"
           >
             Building useful software.{" "}
-            <span className="text-accent-ink">Automating</span> repetitive work.{" "}
-            Exploring <span className="text-accent-ink">intelligent systems</span>.
+            <span className="text-gradient">Automating</span> repetitive work.{" "}
+            Exploring <span className="text-gradient">intelligent systems</span>.
           </motion.h1>
 
           <motion.p
@@ -92,7 +101,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <WorkflowVisual />
+        <PortraitCard />
       </div>
 
       {/* Scroll hint */}
@@ -114,97 +123,65 @@ export function Hero() {
 }
 
 /**
- * Abstract workflow-automation graph: nodes, edges, and slow traveling
- * pulses. Purely decorative (aria-hidden) and honest — it encodes nothing
- * that pretends to be live data.
+ * Portrait in a conic-gradient frame with floating discipline chips.
+ * Chips are decorative labels, not links, so they are aria-hidden and
+ * duplicated by the surrounding headline/section content.
  */
-function WorkflowVisual() {
+function PortraitCard() {
   const reduced = useReducedMotion();
-  const pulse = reduced
-    ? {}
-    : {
-        strokeDasharray: "6 90",
-        animate: { strokeDashoffset: [0, -96] },
-        transition: { repeat: Infinity, duration: 3.2, ease: "linear" as const },
-      };
+  const float = (delay: number) =>
+    reduced
+      ? {}
+      : {
+          animate: { y: [0, -7, 0] },
+          transition: { repeat: Infinity, duration: 4.2, ease: "easeInOut" as const, delay },
+        };
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, delay: 0.15 }}
-      aria-hidden="true"
-      className="relative mx-auto hidden w-full max-w-md lg:block"
+      className="relative mx-auto w-full max-w-xs pb-10 lg:max-w-sm"
     >
-      <svg viewBox="0 0 420 420" className="w-full">
-        <defs>
-          <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.14" />
-            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <circle cx="210" cy="210" r="200" fill="url(#hero-glow)" />
-
-        {/* Concentric guide rings */}
-        {[80, 132, 184].map((r) => (
-          <circle key={r} cx="210" cy="210" r={r} fill="none" stroke="var(--line)" strokeDasharray="2 6" />
-        ))}
-
-        {/* Edges from center hub to orbit nodes */}
-        {nodePositions.map((p) => (
-          <line
-            key={`edge-${p.x}-${p.y}`}
-            x1="210"
-            y1="210"
-            x2={p.x}
-            y2={p.y}
-            stroke="var(--line-strong)"
-            strokeWidth="1.5"
+      {/* Gradient frame + soft plate shadow */}
+      <div className="portrait-ring rounded-[1.75rem] p-[3px] shadow-[0_24px_60px_-24px_rgb(109_74_255/0.45)]">
+        <div className="overflow-hidden rounded-[calc(1.75rem-3px)] bg-raised">
+          <img
+            src={portrait}
+            alt="Portrait of Md. Jahin Hasan"
+            width={1117}
+            height={1600}
+            className="aspect-[4/5] w-full object-cover object-top"
+            loading="eager"
+            decoding="async"
           />
-        )).concat(
-          // Pulses traveling along the same edges
-          nodePositions.map((p, i) => (
-            <line
-              key={`pulse-${p.x}-${p.y}`}
-              x1="210"
-              y1="210"
-              x2={p.x}
-              y2={p.y}
-              stroke="var(--accent)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              {...pulse}
-              // Stagger the pulses per edge
-              {...(reduced
-                ? {}
-                : { transition: { ...pulse.transition, delay: i * 0.55 }, style: { display: "block" } })}
-            />
-          )),
-        )}
+        </div>
+      </div>
 
-        {/* Hub */}
-        <circle cx="210" cy="210" r="34" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.5" />
-        <circle cx="210" cy="210" r="10" fill="var(--accent)" opacity="0.9" />
-        <text x="210" y="258" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="var(--faint)" letterSpacing="2">
-          build → automate → learn
-        </text>
+      {/* Floating discipline chips */}
+      {chips.map((chip, i) => (
+        <motion.span
+          key={chip.label}
+          aria-hidden="true"
+          {...float(i * 0.9)}
+          className={`absolute flex items-center gap-2 rounded-full border border-line bg-surface/90 py-1.5 pl-2 pr-3 text-xs font-medium text-ink shadow-[0_10px_30px_-12px_rgb(23_26_36/0.35)] backdrop-blur-sm ${chip.className}`}
+        >
+          <span
+            className="size-2 rounded-full"
+            style={{ backgroundColor: chip.hue, boxShadow: `0 0 10px ${chip.hue}` }}
+          />
+          {chip.label}
+        </motion.span>
+      ))}
 
-        {/* Orbit nodes */}
-        {nodePositions.map((p) => (
-          <g key={`node-${p.x}-${p.y}`}>
-            <circle cx={p.x} cy={p.y} r="17" fill="var(--raised)" stroke="var(--line-strong)" />
-            <circle cx={p.x} cy={p.y} r="5" fill="var(--accent)" opacity={p.o} />
-          </g>
-        ))}
-      </svg>
+      {/* Mono caption under the plate */}
+      <p
+        aria-hidden="true"
+        className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.24em] text-faint"
+      >
+        build → automate → learn
+      </p>
     </motion.div>
   );
 }
-
-const nodePositions = [
-  { x: 210, y: 26, o: 0.9 },
-  { x: 376, y: 140, o: 0.55 },
-  { x: 340, y: 350, o: 0.75 },
-  { x: 96, y: 356, o: 0.6 },
-  { x: 40, y: 150, o: 0.8 },
-];
