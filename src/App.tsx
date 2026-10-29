@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
+import { MotionConfig } from "motion/react";
 import type { Project, SectionId } from "@/types";
 import { PreferencesProvider } from "@/features/customization/PreferencesContext";
 import { usePreferences } from "@/features/customization/usePreferences";
@@ -7,6 +8,7 @@ import type { LoadedPreferences } from "@/features/customization/preferences";
 import { CustomizationPanel } from "@/features/customization/CustomizationPanel";
 import { Navbar } from "@/features/navigation/Navbar";
 import { BackToTop } from "@/features/navigation/BackToTop";
+import { BackgroundLayers } from "@/components/BackgroundLayers";
 import { Footer } from "@/components/Footer";
 import { ProjectDetailDialog } from "@/features/projects/ProjectDetailDialog";
 import { Hero } from "@/sections/Hero";
@@ -53,17 +55,20 @@ export function App({ initialPreferences }: AppProps) {
   const closeDetails = useCallback(() => setSelectedProject(null), []);
 
   return (
-    <PreferencesProvider initial={initialPreferences}>
-      <a href="#about" className="skip-link">
-        Skip to content
-      </a>
-      <NavbarConsumer onOpenCustomize={() => setCustomizeOpen(true)} />
-      <SectionConsumer openDetails={openDetails} />
-      <Footer />
-      <BackToTop />
-      <CustomizationPanel open={customizeOpen} onClose={() => setCustomizeOpen(false)} />
-      <ProjectDetailDialog project={selectedProject} onClose={closeDetails} />
-    </PreferencesProvider>
+    <MotionConfig reducedMotion="user">
+      <PreferencesProvider initial={initialPreferences}>
+        <BackgroundLayers />
+        <a href="#about" className="skip-link">
+          Skip to content
+        </a>
+        <NavbarConsumer onOpenCustomize={() => setCustomizeOpen(true)} />
+        <SectionConsumer openDetails={openDetails} />
+        <Footer />
+        <BackToTop />
+        <CustomizationPanel open={customizeOpen} onClose={() => setCustomizeOpen(false)} />
+        <ProjectDetailDialog project={selectedProject} onClose={closeDetails} />
+      </PreferencesProvider>
+    </MotionConfig>
   );
 }
 

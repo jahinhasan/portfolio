@@ -201,9 +201,18 @@ async function main() {
   // ---------- console errors ----------
   check("no console errors", consoleErrors.length === 0, consoleErrors.slice(0, 3).join(" | "));
 
-  // full-page screenshot at the end (default dark, default accent)
+  // full-page screenshot at the end (default light, default accent);
+  // scroll through first so scroll-reveal animations have fired everywhere
   await page.evaluate(() => window.localStorage.clear());
   await page.reload({ waitUntil: "networkidle" });
+  await page.evaluate(async () => {
+    const step = Math.round(window.innerHeight * 0.7);
+    for (let y = 0; y <= document.body.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 120));
+    }
+  });
+  await page.waitForTimeout(900);
   await page.screenshot({ path: `${SHOTS}/09-full.png`, fullPage: true });
 
   await browser.close();

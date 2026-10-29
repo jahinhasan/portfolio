@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useReveal } from "@/hooks/useReveal";
 import { cn } from "@/lib/cn";
 
 interface SectionShellProps {
@@ -28,6 +29,7 @@ export function SectionShell({
   children,
   className,
 }: SectionShellProps) {
+  const { ref, shown } = useReveal<HTMLDivElement>();
   return (
     <section
       id={id}
@@ -35,23 +37,31 @@ export function SectionShell({
       className={cn("scroll-mt-24 py-20 sm:py-24", className)}
     >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-        <header className="mb-10 sm:mb-14">
-          <p className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-faint">
-            <span className="text-accent-ink">{kicker}</span>
-            <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
-            <span>{label}</span>
-          </p>
-          <h2
-            id={`${id}-heading`}
-            className="font-display text-3xl font-semibold tracking-tight text-balance text-ink sm:text-4xl"
-          >
-            {title}
-          </h2>
-          {description ? (
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{description}</p>
-          ) : null}
-        </header>
-        {children}
+        <div
+          ref={ref}
+          className={cn(
+            "reveal-group transition-[opacity,transform] duration-500 ease-out",
+            shown ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+          )}
+        >
+          <header className="mb-10 sm:mb-14">
+            <p className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-faint">
+              <span className="text-accent-ink">{kicker}</span>
+              <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
+              <span>{label}</span>
+            </p>
+            <h2
+              id={`${id}-heading`}
+              className="font-display text-3xl font-semibold tracking-tight text-balance text-ink sm:text-4xl"
+            >
+              {title}
+            </h2>
+            {description ? (
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{description}</p>
+            ) : null}
+          </header>
+          {children}
+        </div>
       </div>
     </section>
   );

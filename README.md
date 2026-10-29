@@ -9,7 +9,11 @@ violet→cyan→rose gradient, and a hero portrait.
 
 - **React 19** + **TypeScript** (strict) + **Vite 7**
 - **Tailwind CSS v4** (design tokens via `@theme inline`)
-- **Motion** for section/hero animation (respects `prefers-reduced-motion`)
+- **Motion** for hero/panel animation; scroll reveals use IntersectionObserver +
+  CSS transitions with a fail-safe timer (respects `prefers-reduced-motion`)
+- **Living background** — drifting aurora blobs, a morphing organic shape, a
+  pointer-following spotlight, and film grain (`BackgroundLayers`, all
+  transform/opacity-only and frozen under reduced motion)
 - **dnd-kit** for drag-and-drop (section ordering, featured grid)
 - **lucide-react** icons + a few local inline SVGs
 - **Vitest** + **Testing Library** (83 unit tests) and a **Playwright** browser suite (32 checks)
@@ -108,7 +112,7 @@ npm test && npm run test:browser
 
 ## Structure
 
-```
+```text
 src/
   components/      ui primitives (Button, Dialog, SectionShell, Tag, icons)
   sections/        the nine page sections

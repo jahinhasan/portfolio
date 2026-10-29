@@ -23,7 +23,6 @@ export function Hero() {
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="relative overflow-hidden">
-      <div className="hero-glow" aria-hidden="true" />
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 pb-20 pt-28 sm:px-8 sm:pt-36 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pb-28">
         <div>
           <motion.p
