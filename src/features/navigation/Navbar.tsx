@@ -66,7 +66,7 @@ export function Navbar({ sectionOrder, onOpenCustomize }: NavbarProps) {
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
                       "relative rounded-md px-2.5 py-1.5 text-[13px] font-medium transition-colors",
-                      isActive ? "text-accent" : "text-muted hover:text-ink",
+                      isActive ? "text-accent-ink" : "text-muted hover:text-ink",
                     )}
                   >
                     {meta.label}
@@ -86,7 +86,7 @@ export function Navbar({ sectionOrder, onOpenCustomize }: NavbarProps) {
             <button
               type="button"
               onClick={onOpenCustomize}
-              className="inline-flex h-9 items-center gap-2 rounded-lg border border-line px-3 text-xs font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex h-9 items-center gap-2 rounded-lg border border-line px-3 text-xs font-medium text-muted transition-colors hover:border-accent hover:text-accent-ink"
               aria-haspopup="dialog"
             >
               <Palette size={15} aria-hidden="true" />
@@ -149,7 +149,7 @@ function MobileMenu({ open, onClose, sectionOrder, active }: MobileMenuProps) {
                   aria-current={active === id ? "true" : undefined}
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium transition-colors",
-                    active === id ? "bg-accent/10 text-accent" : "text-muted hover:bg-raised hover:text-ink",
+                    active === id ? "bg-accent/10 text-accent-ink" : "text-muted hover:bg-raised hover:text-ink",
                   )}
                 >
                   <span aria-hidden="true" className="font-mono text-[10px] text-faint">

@@ -15,14 +15,14 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub profile (opens in new tab)"
-            className="transition-colors hover:text-accent"
+            className="transition-colors hover:text-accent-ink"
           >
             <GithubIcon size={16} />
           </a>
           <a
             href={`mailto:${profile.email}`}
             aria-label="Send an email"
-            className="transition-colors hover:text-accent"
+            className="transition-colors hover:text-accent-ink"
           >
             <Mail size={16} aria-hidden="true" />
           </a>

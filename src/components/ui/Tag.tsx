@@ -35,7 +35,7 @@ export function Pill({ children, tone = "neutral", className }: PillProps) {
       className={cn(
         "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-wider",
         tone === "accent"
-          ? "bg-accent/12 text-accent border border-accent/30"
+          ? "bg-accent/12 text-accent-ink border border-accent/30"
           : "border border-line text-faint",
         className,
       )}

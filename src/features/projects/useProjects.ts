@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import type { Project } from "@/types";
 import { getProjectById } from "@/data/projects";
-import { usePreferences } from "@/features/customization/PreferencesContext";
+import { usePreferences } from "@/features/customization/usePreferences";
 
 /** Effective featured state = data default, overridden by visitor choice. */
 export function isProjectFeatured(project: Project, overrides: Record<string, boolean>): boolean {

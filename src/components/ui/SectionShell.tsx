@@ -37,7 +37,7 @@ export function SectionShell({
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         <header className="mb-10 sm:mb-14">
           <p className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-faint">
-            <span className="text-accent">{kicker}</span>
+            <span className="text-accent-ink">{kicker}</span>
             <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
             <span>{label}</span>
           </p>

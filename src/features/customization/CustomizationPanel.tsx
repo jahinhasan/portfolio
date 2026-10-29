@@ -20,7 +20,7 @@ import { getSectionMeta } from "@/data/navigation";
 import { accentPresets } from "@/data/theme";
 import { getProjectById, projects as allProjects } from "@/data/projects";
 import { isProjectFeatured, useProjects } from "@/features/projects/useProjects";
-import { usePreferences } from "./PreferencesContext";
+import { usePreferences } from "./usePreferences";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { normalizeHex } from "@/lib/color";
 import { SortableRow } from "./SortableRow";
@@ -124,7 +124,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/12 text-accent">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
               <Palette size={16} aria-hidden="true" />
             </span>
             <div>
@@ -213,7 +213,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
               </div>
 
               <div className="mt-3 flex items-center gap-2">
-                <label className="relative inline-flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border border-line px-3 text-xs text-muted hover:border-accent hover:text-accent">
+                <label className="relative inline-flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border border-line px-3 text-xs text-muted hover:border-accent hover:text-accent-ink">
                   <span
                     aria-hidden="true"
                     className="h-4 w-4 rounded-full border border-white/20"
@@ -318,7 +318,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                             type="button"
                             onClick={() => setProjectFeatured(p.id, false)}
                             aria-label={`Remove ${p.name} from featured`}
-                            className="rounded px-1.5 py-0.5 font-mono text-[10px] uppercase text-faint hover:text-accent"
+                            className="rounded px-1.5 py-0.5 font-mono text-[10px] uppercase text-faint hover:text-accent-ink"
                           >
                             Unfeature
                           </button>
@@ -392,7 +392,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
           <button
             type="button"
             onClick={resetAll}
-            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-line text-sm text-muted transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-line text-sm text-muted transition-colors hover:border-accent hover:text-accent-ink"
           >
             <RotateCcw size={14} aria-hidden="true" />
             Reset everything to default
@@ -438,7 +438,7 @@ function ResetButton({ onClick, label }: { onClick: () => void; label: string })
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="rounded p-1 text-faint hover:text-accent"
+      className="rounded p-1 text-faint hover:text-accent-ink"
     >
       <RotateCcw size={13} aria-hidden="true" />
     </button>

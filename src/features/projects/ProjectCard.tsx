@@ -66,7 +66,7 @@ export function ProjectCard({
       <button
         type="button"
         onClick={() => onOpenDetails(project)}
-        className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-accent/12 px-3 font-mono text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+        className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-accent/12 px-3 font-mono text-xs font-medium text-accent-ink transition-colors hover:bg-accent/20"
         aria-label={`Details about ${project.name}`}
       >
         Details
@@ -78,7 +78,7 @@ export function ProjectCard({
         rel="noopener noreferrer"
         aria-label={`${project.name} on GitHub (opens in new tab)`}
         title="View repository on GitHub"
-        className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent-ink"
       >
         <GithubIcon size={15} />
       </a>
@@ -89,7 +89,7 @@ export function ProjectCard({
           rel="noopener noreferrer"
           aria-label={`${project.name} live demo (opens in new tab)`}
           title="Open live demo"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent-ink"
         >
           <ExternalLink size={15} aria-hidden="true" />
         </a>

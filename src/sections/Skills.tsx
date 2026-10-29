@@ -18,7 +18,7 @@ export function Skills() {
         {skillGroups.map((group) => (
           <div key={group.id} className="rounded-xl border border-line bg-surface p-5">
             <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-faint">
-              <span aria-hidden="true" className="mr-2 text-accent">
+              <span aria-hidden="true" className="mr-2 text-accent-ink">
                 //
               </span>
               {group.label}

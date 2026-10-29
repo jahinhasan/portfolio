@@ -5,7 +5,7 @@ import { CSS as CSSUtil } from "@dnd-kit/utilities";
 import type { Project } from "@/types";
 import { SectionShell } from "@/components/ui/SectionShell";
 import { getSectionMeta } from "@/data/navigation";
-import { usePreferences } from "@/features/customization/PreferencesContext";
+import { usePreferences } from "@/features/customization/usePreferences";
 import { useProjects } from "@/features/projects/useProjects";
 import { ProjectCard } from "@/features/projects/ProjectCard";
 

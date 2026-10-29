@@ -46,7 +46,7 @@ export function ProjectDetailDialog({ project, onClose }: ProjectDetailDialogPro
             <ul className="space-y-2.5">
               {project.details.approach.map((item, i) => (
                 <li key={i} className="flex gap-3 text-sm leading-relaxed text-muted">
-                  <span aria-hidden="true" className="mt-0.5 font-mono text-xs text-accent">
+                  <span aria-hidden="true" className="mt-0.5 font-mono text-xs text-accent-ink">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span>{item}</span>

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { LayoutGrid, List, Search, X } from "lucide-react";
 import type { Project } from "@/types";
 import { projectCategoryLabels } from "@/data/projects";
-import { usePreferences } from "@/features/customization/PreferencesContext";
+import { usePreferences } from "@/features/customization/usePreferences";
 import { filterProjects, presentCategories } from "./filtering";
 import type { CategoryFilter } from "./filtering";
 import { ProjectCard } from "./ProjectCard";
@@ -142,7 +142,7 @@ export function ProjectArchive({ projects, onOpenDetails }: ProjectArchiveProps)
               setQuery("");
               setCategory("all");
             }}
-            className="mt-4 font-mono text-xs uppercase tracking-wider text-accent hover:underline"
+            className="mt-4 font-mono text-xs uppercase tracking-wider text-accent-ink hover:underline"
           >
             Clear filters
           </button>
@@ -175,12 +175,12 @@ function FilterChip({
       className={cn(
         "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors",
         active
-          ? "border-accent bg-accent/12 text-accent"
+          ? "border-accent bg-accent/12 text-accent-ink"
           : "border-line text-muted hover:border-line-strong hover:text-ink",
       )}
     >
       {children}
-      <span aria-hidden="true" className={cn("font-mono text-[10px]", active ? "text-accent/70" : "text-faint")}>
+      <span aria-hidden="true" className={cn("font-mono text-[10px]", active ? "text-accent-ink/70" : "text-faint")}>
         {count}
       </span>
     </button>
@@ -207,7 +207,7 @@ function LayoutButton({
       title={label}
       className={cn(
         "inline-flex h-8 w-9 items-center justify-center rounded-md transition-colors",
-        active ? "bg-accent/15 text-accent" : "text-faint hover:text-ink",
+        active ? "bg-accent/15 text-accent-ink" : "text-faint hover:text-ink",
       )}
     >
       {children}

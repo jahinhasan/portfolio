@@ -24,14 +24,14 @@ export function Contact() {
         {/* Direct channels */}
         <div className="space-y-3">
           <div className="flex items-center gap-4 rounded-xl border border-line bg-surface p-4">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
               <Mail size={18} aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-mono text-[11px] uppercase tracking-wider text-faint">Email</p>
               <a
                 href={`mailto:${profile.email}`}
-                className="block truncate text-sm text-ink transition-colors hover:text-accent"
+                className="block truncate text-sm text-ink transition-colors hover:text-accent-ink"
               >
                 {profile.email}
               </a>
@@ -39,12 +39,12 @@ export function Contact() {
             <button
               type="button"
               onClick={() => void copy(profile.email)}
-              className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border border-line px-3 font-mono text-[11px] uppercase tracking-wider text-muted transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border border-line px-3 font-mono text-[11px] uppercase tracking-wider text-muted transition-colors hover:border-accent hover:text-accent-ink"
               aria-label={`Copy email address. Current status: ${status === "copied" ? "copied" : status === "failed" ? "copy failed" : "idle"}`}
             >
               {status === "copied" ? (
                 <>
-                  <Check size={13} className="text-accent" aria-hidden="true" /> Copied
+                  <Check size={13} className="text-accent-ink" aria-hidden="true" /> Copied
                 </>
               ) : status === "failed" ? (
                 <>
@@ -64,12 +64,12 @@ export function Contact() {
             rel="noopener noreferrer"
             className="group flex items-center gap-4 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-line-strong"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
               <GithubIcon size={18} />
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-mono text-[11px] uppercase tracking-wider text-faint">GitHub</p>
-              <p className="truncate text-sm text-ink group-hover:text-accent">@jahinhasan</p>
+              <p className="truncate text-sm text-ink group-hover:text-accent-ink">@jahinhasan</p>
             </div>
           </a>
 
@@ -77,12 +77,12 @@ export function Contact() {
             href={profile.phoneHref}
             className="group flex items-center gap-4 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-line-strong"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
               <Phone size={18} aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1">
               <p className="font-mono text-[11px] uppercase tracking-wider text-faint">Phone</p>
-              <p className="truncate text-sm text-ink group-hover:text-accent">{profile.phoneDisplay}</p>
+              <p className="truncate text-sm text-ink group-hover:text-accent-ink">{profile.phoneDisplay}</p>
             </div>
           </a>
 
@@ -93,12 +93,12 @@ export function Contact() {
               rel="noopener noreferrer"
               className="group flex items-center gap-4 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-line-strong"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
                 <LinkedinIcon size={18} />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="font-mono text-[11px] uppercase tracking-wider text-faint">LinkedIn</p>
-                <p className="truncate text-sm text-ink group-hover:text-accent">{profile.linkedin}</p>
+                <p className="truncate text-sm text-ink group-hover:text-accent-ink">{profile.linkedin}</p>
               </div>
             </a>
           ) : null}

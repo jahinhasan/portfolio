@@ -26,7 +26,7 @@ export function Experience() {
               {entry.period}
             </p>
             <h3 className="font-display text-lg font-semibold text-ink">{entry.title}</h3>
-            <p className="mb-3 text-sm text-accent">{entry.org}</p>
+            <p className="mb-3 text-sm text-accent-ink">{entry.org}</p>
             <ul className="space-y-2">
               {entry.points.map((point, i) => (
                 <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-muted">
@@ -40,7 +40,7 @@ export function Experience() {
                 href={entry.link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 font-mono text-xs text-accent hover:underline"
+                className="mt-3 inline-flex items-center gap-1 font-mono text-xs text-accent-ink hover:underline"
               >
                 {entry.link.label}
                 <ArrowUpRight size={12} aria-hidden="true" />

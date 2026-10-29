@@ -1,7 +1,8 @@
 import { useCallback, useState } from "react";
 import type { ReactNode } from "react";
 import type { Project, SectionId } from "@/types";
-import { PreferencesProvider, usePreferences } from "@/features/customization/PreferencesContext";
+import { PreferencesProvider } from "@/features/customization/PreferencesContext";
+import { usePreferences } from "@/features/customization/usePreferences";
 import type { LoadedPreferences } from "@/features/customization/preferences";
 import { CustomizationPanel } from "@/features/customization/CustomizationPanel";
 import { Navbar } from "@/features/navigation/Navbar";

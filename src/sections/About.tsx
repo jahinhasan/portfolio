@@ -54,7 +54,7 @@ function FactCard({
 }) {
   return (
     <div className="flex gap-3.5 rounded-xl border border-line bg-surface p-4">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
         {icon}
       </span>
       <div>

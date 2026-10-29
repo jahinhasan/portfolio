@@ -23,7 +23,7 @@ export function Hero() {
             transition={{ duration: 0.4 }}
             className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-[0.2em] text-faint"
           >
-            <span className="text-accent">{profile.name}</span>
+            <span className="text-accent-ink">{profile.name}</span>
             <span aria-hidden="true">/</span>
             <span>{profile.location}</span>
           </motion.p>
@@ -36,8 +36,8 @@ export function Hero() {
             className="max-w-2xl font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance text-ink sm:text-5xl lg:text-[3.4rem]"
           >
             Building useful software.{" "}
-            <span className="text-accent">Automating</span> repetitive work.{" "}
-            Exploring <span className="text-accent">intelligent systems</span>.
+            <span className="text-accent-ink">Automating</span> repetitive work.{" "}
+            Exploring <span className="text-accent-ink">intelligent systems</span>.
           </motion.h1>
 
           <motion.p
@@ -78,11 +78,11 @@ export function Hero() {
             <button
               type="button"
               onClick={() => void copy(profile.email)}
-              className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-1.5 font-mono text-xs transition-colors hover:border-accent hover:text-accent"
+              className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-1.5 font-mono text-xs transition-colors hover:border-accent hover:text-accent-ink"
               aria-live="polite"
             >
               {status === "copied" ? (
-                <Check size={13} className="text-accent" aria-hidden="true" />
+                <Check size={13} className="text-accent-ink" aria-hidden="true" />
               ) : (
                 <Copy size={13} aria-hidden="true" />
               )}
@@ -99,7 +99,7 @@ export function Hero() {
       <a
         href="#about"
         aria-label="Scroll to the about section"
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-faint transition-colors hover:text-accent lg:block"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-faint transition-colors hover:text-accent-ink lg:block"
       >
         <motion.span
           animate={reduced ? undefined : { y: [0, 6, 0] }}

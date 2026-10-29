@@ -19,7 +19,7 @@ export function Education() {
             key={entry.id}
             className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-6 sm:flex-row sm:items-start"
           >
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent-ink">
               <GraduationCap size={20} aria-hidden="true" />
             </span>
             <div className="min-w-0">

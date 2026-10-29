@@ -20,6 +20,7 @@
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-accent-fg: var(--accent-fg);
 
   --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -39,7 +40,9 @@
   --ink: #e9ebf2;
   --muted: #a4aabb;
   --faint: #6d7386;
-  --accent: #7c5cff;
+  --accent: #6d4aff;
+  /* Accent tuned for text: lighter in dark mode, darker in light mode. */
+  --accent-ink: color-mix(in oklab, var(--accent) 82%, white);
   --accent-fg: #ffffff;
   color-scheme: dark;
 }
@@ -54,6 +57,7 @@
   --muted: #545b6c;
   --faint: #82889a;
   color-scheme: light;
+  --accent-ink: color-mix(in oklab, var(--accent) 82%, black);
 }
 
 /* ---------- Base ---------- */
