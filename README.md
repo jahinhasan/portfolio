@@ -42,14 +42,10 @@ npm run dev          # dev server at http://localhost:5173
 
 The site is static — `dist/` is the whole deliverable.
 
-**GitHub Pages (project site):** push the repo to GitHub, then either
-
-```bash
-npm run build:pages && npx gh-pages -d dist
-```
-
-or add a Pages workflow that runs `npm run build:pages` and publishes `dist/`. The build
-assumes the site lives at `https://<user>.github.io/portfolio/` — if you deploy somewhere
+**GitHub Pages (project site):** already wired up — `.github/workflows/deploy.yml`
+builds with `base=/portfolio/` and publishes on every push to `main` (or a manual
+"Run workflow" click). Pages must be set to **Source: GitHub Actions** in repo settings.
+The build assumes the site lives at `https://<user>.github.io/portfolio/` — if you deploy somewhere
 else (custom domain, Netlify, Vercel root), update:
 
 1. `index.html` — `<link rel="canonical">` and the JSON-LD `url`
