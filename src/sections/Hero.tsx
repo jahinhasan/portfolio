@@ -32,7 +32,10 @@ export function Hero() {
           <span className="hidden sm:inline">{profile.location}</span>
         </motion.p>
 
-        <div className="grid gap-10 lg:grid-cols-[1fr_300px] lg:items-end lg:gap-16">
+        {/* minmax(0,1fr) keeps the display type's long unbreakable word
+            ("EXPERIENCES.") from inflating the track and pushing the
+            metadata column past the viewport. */}
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end lg:gap-16">
           {/* Display composition */}
           <div>
             <motion.h1 {...fade(0.06)} id="hero-heading" className="display-hero text-ink">

@@ -63,6 +63,19 @@ async function main() {
     /open to work/i.test((await page.getByRole("banner").textContent()) ?? ""),
   );
   check("no horizontal overflow", (await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)));
+  // overflow:hidden hides scrollbars but can still CLIP content — assert the
+  // hero metadata column stays inside the layout container (same right edge
+  // as the masthead row above it).
+  const heroEdges = await page.evaluate(() => {
+    const masthead = document.querySelector("#hero .border-y");
+    const chip = [...document.querySelectorAll("#hero p")].find((p) => /freelance/i.test(p.textContent ?? ""));
+    return { masthead: masthead?.getBoundingClientRect().right, chip: chip?.getBoundingClientRect().right };
+  });
+  check(
+    "hero metadata column not clipped",
+    heroEdges.masthead !== undefined && heroEdges.chip !== undefined && heroEdges.chip <= heroEdges.masthead + 1,
+    JSON.stringify(heroEdges),
+  );
 
   await page.screenshot({ path: `${SHOTS}/01-hero.png` });
 
