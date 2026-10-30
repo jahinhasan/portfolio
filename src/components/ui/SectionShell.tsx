@@ -6,19 +6,22 @@ interface SectionShellProps {
   id: string;
   /** Mono eyebrow number, e.g. "03". */
   kicker: string;
-  /** Mono eyebrow label, e.g. "Featured Projects". */
+  /** Mono eyebrow label, e.g. "Selected Projects". */
   label: string;
   /** Large display heading. Authored copy, may differ from `label`. */
   title: string;
   description?: string;
   children: ReactNode;
   className?: string;
+  /** Alternate the header layout: meta column right of the title on wide screens. */
+  splitHeader?: boolean;
 }
 
 /**
- * Shared section chrome: anchored <section>, numbered mono kicker,
- * display-font heading, optional lede. Keeps every section visually
- * consistent while its content stays free to differ.
+ * Shared section chrome: anchored <section>, hairline top rule with a
+ * numbered mono kicker, display-font uppercase heading, optional lede.
+ * Keeps every section structurally consistent while its content stays
+ * free to differ.
  */
 export function SectionShell({
   id,
@@ -28,13 +31,14 @@ export function SectionShell({
   description,
   children,
   className,
+  splitHeader = false,
 }: SectionShellProps) {
   const { ref, shown } = useReveal<HTMLDivElement>();
   return (
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={cn("scroll-mt-24 py-20 sm:py-24", className)}
+      className={cn("scroll-mt-24 border-t border-line py-20 sm:py-28", className)}
     >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         <div
@@ -44,20 +48,25 @@ export function SectionShell({
             shown ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
           )}
         >
-          <header className="mb-10 sm:mb-14">
-            <p className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-faint">
-              <span className="text-accent-ink">{kicker}</span>
-              <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
-              <span>{label}</span>
-            </p>
-            <h2
-              id={`${id}-heading`}
-              className="font-display text-3xl font-semibold tracking-tight text-balance text-ink sm:text-4xl"
-            >
-              {title}
-            </h2>
+          <header className={cn("mb-10 sm:mb-14", splitHeader && "lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10")}>
+            <div>
+              <p className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.22em] text-faint">
+                <span className="bg-accent px-1.5 py-0.5 font-semibold text-accent-fg">{kicker}</span>
+                <span>{label}</span>
+              </p>
+              <h2 id={`${id}-heading`} className="display-section text-ink">
+                {title}
+              </h2>
+            </div>
             {description ? (
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{description}</p>
+              <p
+                className={cn(
+                  "mt-5 max-w-2xl text-base leading-relaxed text-muted",
+                  splitHeader && "lg:mt-0 lg:max-w-sm lg:text-right",
+                )}
+              >
+                {description}
+              </p>
             ) : null}
           </header>
           {children}

@@ -66,7 +66,7 @@ export function ProjectCard({
       <button
         type="button"
         onClick={() => onOpenDetails(project)}
-        className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-accent/12 px-3 font-mono text-xs font-medium text-accent-ink transition-colors hover:bg-accent/20"
+        className="inline-flex h-8 items-center gap-1.5 bg-accent px-3 font-mono text-xs font-medium text-accent-fg transition-transform hover:-translate-y-0.5"
         aria-label={`Details about ${project.name}`}
       >
         Details
@@ -78,7 +78,7 @@ export function ProjectCard({
         rel="noopener noreferrer"
         aria-label={`${project.name} on GitHub (opens in new tab)`}
         title="View repository on GitHub"
-        className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent-ink"
+        className="inline-flex h-8 w-8 items-center justify-center border border-line text-muted transition-colors hover:border-accent hover:text-accent-ink"
       >
         <GithubIcon size={15} />
       </a>
@@ -89,7 +89,7 @@ export function ProjectCard({
           rel="noopener noreferrer"
           aria-label={`${project.name} live demo (opens in new tab)`}
           title="Open live demo"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-accent-ink"
+          className="inline-flex h-8 w-8 items-center justify-center border border-line text-muted transition-colors hover:border-accent hover:text-accent-ink"
         >
           <ExternalLink size={15} aria-hidden="true" />
         </a>
@@ -101,12 +101,12 @@ export function ProjectCard({
     return (
       <article
         className={cn(
-          "group flex gap-4 rounded-xl border border-line bg-surface p-3 transition-colors hover:border-line-strong sm:gap-5 sm:p-4",
+          "group flex gap-4 border border-line bg-surface p-3 transition-colors hover:border-accent sm:gap-5 sm:p-4",
           draggable && "cursor-grab active:cursor-grabbing",
         )}
       >
-        <div className="hidden w-40 shrink-0 overflow-hidden rounded-lg border border-line sm:block md:w-52">
-          <div className="aspect-[16/10] transition-transform duration-300 group-hover:scale-[1.03]">{art}</div>
+        <div className="hidden w-40 shrink-0 overflow-hidden border border-line sm:block md:w-52">
+          <div className="aspect-[16/10]">{art}</div>
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <div className="flex items-start justify-between gap-3">
@@ -126,17 +126,17 @@ export function ProjectCard({
   return (
     <article
       className={cn(
-        "group flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-panel",
+        "group flex flex-col overflow-hidden border border-line bg-surface transition-colors hover:border-accent",
         draggable && "cursor-grab active:cursor-grabbing",
       )}
     >
       <div className="relative overflow-hidden border-b border-line">
-        <div className="aspect-[16/9] transition-transform duration-300 group-hover:scale-[1.03]">{art}</div>
+        <div className="aspect-[16/9]">{art}</div>
         {handleProps ? (
           <button
             type="button"
             {...handleProps}
-            className="absolute right-2 top-2 rounded-md bg-bg/80 p-1.5 text-muted opacity-0 backdrop-blur transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
+            className="absolute right-2 top-2 border border-line bg-bg p-1.5 text-muted opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
             aria-label={`Reorder ${project.name}`}
           >
             <GripVertical />

@@ -3,90 +3,98 @@
 <head>
 <meta charset="utf-8" />
 <style>
+  @font-face {
+    font-family: "Archivo Black";
+    src: url("../node_modules/@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "Inter";
+    src: url("../node_modules/@fontsource-variable/inter/files/inter-latin-standard-normal.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2") format("woff2");
+    font-weight: 500;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
-    background: #f7f7fb;
-    font-family: -apple-system, "Segoe UI", "Inter", system-ui, sans-serif;
+    background: #121411;
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0 84px;
+    padding: 0 72px;
   }
-  /* pastel color field */
-  .blob { position: absolute; border-radius: 9999px; filter: blur(70px); }
-  .b1 { width: 480px; height: 480px; top: -160px; right: 200px;
-        background: radial-gradient(circle, rgb(109 74 255 / 0.22), transparent 62%); }
-  .b2 { width: 380px; height: 380px; bottom: -140px; left: -80px;
-        background: radial-gradient(circle, rgb(8 145 178 / 0.18), transparent 60%); }
-  .b3 { width: 320px; height: 320px; top: 120px; left: 420px;
-        background: radial-gradient(circle, rgb(219 39 119 / 0.12), transparent 60%); }
+  /* blueprint dot grid */
   .grid {
     position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgb(16 18 26 / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(16 18 26 / 0.05) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(ellipse 90% 80% at 40% 45%, black 30%, transparent 78%);
+    background-image: radial-gradient(#3d4238 1.5px, transparent 1.5px);
+    background-size: 34px 34px;
   }
-  .content { position: relative; max-width: 760px; }
-  .kicker {
-    color: #6d4aff;
-    font-size: 21px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    font-weight: 700;
+  .content { position: relative; width: 100%; }
+  .masthead {
+    display: flex; align-items: center; gap: 16px;
+    border-top: 1px solid #3d4238; border-bottom: 1px solid #3d4238;
+    padding: 14px 2px; margin-bottom: 40px;
+    font-family: "JetBrains Mono", monospace; font-weight: 500;
+    font-size: 16px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #b5b3a6; white-space: nowrap;
+  }
+  .masthead .name { color: #c8f04d; }
+  .masthead .sep { color: #82847a; }
+  .masthead .mark {
+    background: #c8f04d; color: #16180f; padding: 6px 10px;
+    font-family: "Archivo Black", sans-serif; letter-spacing: 0;
+    font-size: 15px; margin-right: 8px;
   }
   h1 {
-    color: #171a24;
-    font-size: 78px;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    font-weight: 800;
+    font-family: "Archivo Black", "Arial Black", sans-serif;
+    font-size: 96px; line-height: 0.98; letter-spacing: -0.01em;
+    text-transform: uppercase; color: #f1efe7;
   }
-  .grad {
-    background-image: linear-gradient(100deg, #6d4aff 0%, #0891b2 48%, #db2777 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+  .outline {
     color: transparent;
+    -webkit-text-stroke: 2px #c8f04d;
   }
-  .role { margin-top: 26px; color: #4d5468; font-size: 28px; font-weight: 500; }
-  .role .dot { color: #6d4aff; margin: 0 14px; }
-  .footer {
-    position: absolute; bottom: 52px; left: 84px;
-    display: flex; gap: 32px;
-    color: #7b8194; font-size: 20px;
-    font-family: "JetBrains Mono", ui-monospace, monospace;
+  .marker {
+    background: #c8f04d; color: #16180f; padding: 0 14px;
   }
-  .portrait { position: absolute; right: 84px; top: 96px; width: 300px; }
-  .ring {
-    background: conic-gradient(from 210deg, #6d4aff, #0891b2, #db2777, #f59e0b, #6d4aff);
-    border-radius: 28px; padding: 4px;
-    box-shadow: 0 28px 64px -24px rgb(109 74 255 / 0.5);
+  .sub {
+    margin-top: 34px; display: flex; align-items: center; gap: 18px;
+    font-family: "Inter", sans-serif; font-size: 24px; color: #b5b3a6;
   }
-  .ring img {
-    display: block; width: 100%; height: 356px; object-fit: cover; object-position: top;
-    border-radius: 24px;
+  .avail {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid #3d4238; background: #191c17;
+    padding: 10px 16px;
+    font-family: "JetBrains Mono", monospace; font-size: 15px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: #f1efe7;
   }
+  .dot { width: 9px; height: 9px; background: #c8f04d; display: inline-block; }
 </style>
 </head>
 <body>
   <div class="grid"></div>
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="blob b3"></div>
   <div class="content">
-    <div class="kicker">◇ PORTFOLIO</div>
-    <h1>Md. Jahin Hasan<br /><span class="grad">Software Developer</span></h1>
-    <div class="role">Web Development <span class="dot">·</span> Automation</div>
-  </div>
-  <div class="portrait">
-    <div class="ring"><img src="../src/assets/jahin.jpg" alt="" /></div>
-  </div>
-  <div class="footer">
-    <span>github.com/jahinhasan</span>
-    <span>BAUST, Rangpur</span>
+    <div class="masthead">
+      <span class="mark">JH</span>
+      <span class="name">Jahin Hasan</span>
+      <span class="sep">/</span>
+      <span>Frontend Developer</span>
+      <span class="sep">|</span>
+      <span>Web Developer</span>
+      <span class="sep">|</span>
+      <span>Automation Enthusiast</span>
+    </div>
+    <h1>
+      Building<br />
+      <span class="outline">digital</span>
+      <span class="marker">experiences.</span>
+    </h1>
+    <div class="sub">
+      <span class="avail"><span class="dot"></span> Available for freelance projects</span>
+      <span>github.com/jahinhasan</span>
+    </div>
   </div>
 </body>
 </html>

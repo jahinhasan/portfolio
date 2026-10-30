@@ -54,7 +54,7 @@ export function ProjectArchive({ projects, onOpenDetails }: ProjectArchiveProps)
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name or technology…"
             aria-label="Search projects by name or technology"
-            className="h-10 w-full rounded-lg border border-line bg-surface pl-9 pr-9 text-sm text-ink placeholder:text-faint focus:border-accent focus:outline-none"
+            className="h-10 w-full border border-line bg-surface pl-9 pr-9 text-sm text-ink placeholder:text-faint focus:border-accent focus:outline-none"
           />
           {query ? (
             <button
@@ -72,7 +72,7 @@ export function ProjectArchive({ projects, onOpenDetails }: ProjectArchiveProps)
         <div
           role="group"
           aria-label="Display mode"
-          className="flex h-10 shrink-0 items-center gap-0.5 rounded-lg border border-line bg-surface p-1"
+          className="flex h-10 shrink-0 items-center gap-0.5 border border-line bg-surface p-1"
         >
           <LayoutButton
             active={preferences.projectLayout === "grid"}
@@ -131,7 +131,7 @@ export function ProjectArchive({ projects, onOpenDetails }: ProjectArchiveProps)
           ))}
         </div>
       ) : (
-        <div className="rounded-xl border border-dashed border-line-strong p-12 text-center">
+        <div className=" border border-dashed border-line-strong p-12 text-center">
           <p className="font-display text-lg text-ink">No projects match</p>
           <p className="mt-1 text-sm text-muted">
             Nothing found for “{query}” in this category. Try a different term or filter.
@@ -173,7 +173,7 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors",
+        "inline-flex shrink-0 items-center gap-1.5 border px-3.5 py-1.5 text-xs font-medium transition-colors",
         active
           ? "border-accent bg-accent/12 text-accent-ink"
           : "border-line text-muted hover:border-line-strong hover:text-ink",
@@ -206,7 +206,7 @@ function LayoutButton({
       aria-label={label}
       title={label}
       className={cn(
-        "inline-flex h-8 w-9 items-center justify-center rounded-md transition-colors",
+        "inline-flex h-8 w-9 items-center justify-center transition-colors",
         active ? "bg-accent/15 text-accent-ink" : "text-faint hover:text-ink",
       )}
     >

@@ -51,7 +51,7 @@ export function Dialog({
       <div
         aria-hidden="true"
         onClick={onClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm motion-safe:animate-[fade-in_180ms_ease-out]"
+        className="absolute inset-0 bg-black/60 motion-safe:animate-[fade-in_180ms_ease-out]"
       />
       <div
         ref={containerRef}
@@ -60,8 +60,8 @@ export function Dialog({
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         className={cn(
-          "relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-line bg-surface shadow-pop",
-          "sm:max-w-2xl sm:rounded-2xl motion-safe:animate-[dialog-in_200ms_ease-out]",
+          "relative flex max-h-[92dvh] w-full flex-col overflow-hidden border border-line-strong bg-surface shadow-pop",
+          "sm:max-w-2xl motion-safe:animate-[dialog-in_200ms_ease-out]",
           className,
         )}
       >
@@ -80,7 +80,7 @@ export function Dialog({
             type="button"
             onClick={onClose}
             aria-label={closeLabel}
-            className="rounded-lg p-1.5 text-muted transition-colors hover:bg-raised hover:text-ink"
+            className="p-1.5 text-muted transition-colors hover:bg-raised hover:text-ink"
           >
             <X size={18} aria-hidden="true" />
           </button>

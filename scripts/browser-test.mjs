@@ -40,11 +40,16 @@ async function main() {
 
   // ---------- load & structure ----------
   check("page loads with hero heading", await page.locator("h1#hero-heading").isVisible());
+  check(
+    "hero carries the editorial headline",
+    /building/i.test((await page.locator("h1#hero-heading").textContent()) ?? "") &&
+      /digital experiences/i.test((await page.locator("h1#hero-heading").textContent()) ?? ""),
+  );
   const sectionIds = await page.locator("main > div > section").evaluateAll((els) => els.map((e) => e.id));
   check(
-    "all nine sections render",
-    sectionIds.length === 9 &&
-      ["hero", "about", "skills", "projects", "archive", "experience", "education", "achievements", "contact"].every((id) => sectionIds.includes(id)),
+    "all ten sections render",
+    sectionIds.length === 10 &&
+      ["hero", "about", "projects", "skills", "services", "archive", "experience", "education", "achievements", "contact"].every((id) => sectionIds.includes(id)),
     sectionIds.join(","),
   );
   const navHrefs = await page.locator("header nav ul a").evaluateAll((els) => els.map((a) => a.getAttribute("href")));
@@ -52,6 +57,10 @@ async function main() {
     "nav links match rendered section ids",
     navHrefs.every((h) => sectionIds.includes(h.slice(1))),
     `${navHrefs.length} links`,
+  );
+  check(
+    "availability indicator shown",
+    /open to work/i.test((await page.getByRole("banner").textContent()) ?? ""),
   );
   check("no horizontal overflow", (await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)));
 
@@ -63,12 +72,15 @@ async function main() {
   check("panel opens", await page.getByRole("dialog", { name: /customize this portfolio/i }).isVisible());
   await page.screenshot({ path: `${SHOTS}/02-panel.png` });
 
-  // Round-trip both themes: default is light, so flip to dark and back.
-  await page.getByRole("radio", { name: "dark" }).click();
-  check("dark theme applies", (await page.evaluate(() => document.documentElement.dataset.theme)) === "dark");
+  // Round-trip both themes: default is dark (charcoal), so flip to light and back.
   await page.getByRole("radio", { name: "light" }).click();
   check("light theme applies", (await page.evaluate(() => document.documentElement.dataset.theme)) === "light");
   await page.screenshot({ path: `${SHOTS}/03-light.png` });
+  await page.getByRole("radio", { name: "dark" }).click();
+  check("dark theme applies", (await page.evaluate(() => document.documentElement.dataset.theme)) === "dark");
+  // Leave the visitor on light so the persistence probe below has a non-default state.
+  await page.getByRole("radio", { name: "light" }).click();
+  await page.waitForTimeout(100);
 
   await page.getByRole("radio", { name: "Cyan" }).click();
   const accent = await page.evaluate(() => document.documentElement.style.getPropertyValue("--accent").trim());
@@ -89,28 +101,31 @@ async function main() {
 
   // ---------- section reorder via keyboard-accessible arrows ----------
   await page.getByRole("button", { name: /customize/i }).click();
-  // Move Skills up once: default (hero, about, skills) → (hero, skills, about).
-  // Nav excludes hero, so nav flips from About>Skills to Skills>About.
+  // Move Skills up once: default (hero, about, projects, skills) → (hero, about, skills, projects).
+  // Nav follows the visitor's order, so it flips from About>Projects>Skills to About>Skills>Projects.
   const skillsRow = page.locator('li[aria-label^="Skills. Position"]');
   await skillsRow.getByRole("button", { name: "Move Skills up" }).click();
   const navAfter = await page.locator("header nav ul a").evaluateAll((els) => els.map((a) => a.textContent?.trim()));
-  check("section reorder updates nav order", navAfter[0] === "Skills" && navAfter[1] === "About", navAfter.slice(0, 3).join(" > "));
+  check("section reorder updates nav order", navAfter[0] === "About" && navAfter[1] === "Skills", navAfter.slice(0, 3).join(" > "));
   const sectionOrder = await page.locator("main > div > section").evaluateAll((els) => els.map((e) => e.id));
-  check("DOM section order follows preference", sectionOrder[1] === "skills" && sectionOrder[2] === "about", sectionOrder.slice(0, 4).join(","));
+  check("DOM section order follows preference", sectionOrder[2] === "skills" && sectionOrder[3] === "projects", sectionOrder.slice(0, 4).join(","));
 
   // reset all
   await page.getByRole("button", { name: "Reset everything to default" }).click();
   await page.waitForTimeout(200);
   const navReset = await page.locator("header nav ul a").evaluateAll((els) => els.map((a) => a.textContent?.trim()));
-  check("reset restores nav order", navReset[0] === "About" && navReset[1] === "Skills", "checked below");
-  check("reset restores light theme", (await page.evaluate(() => document.documentElement.dataset.theme)) === "light");
+  check("reset restores nav order", navReset[0] === "About" && navReset[1] === "Projects", navReset.slice(0, 3).join(" > "));
+  check("reset restores dark theme", (await page.evaluate(() => document.documentElement.dataset.theme)) === "dark");
   const storedAfterReset = await page.evaluate(() => window.localStorage.getItem("jh-portfolio-prefs"));
   check("reset clears stored prefs", storedAfterReset === null);
   await page.keyboard.press("Escape");
   await page.waitForTimeout(300);
 
   // ---------- project archive ----------
-  await page.locator('a[href="#archive"]').first().click();
+  // Archive is intentionally out of the minimal navbar — travel by hash.
+  await page.evaluate(() => {
+    location.hash = "#archive";
+  });
   await page.waitForTimeout(300);
   const cardsBefore = await page.locator("#archive article").count();
   check("archive shows non-featured projects", cardsBefore >= 5, `${cardsBefore} cards`);
@@ -133,7 +148,10 @@ async function main() {
   await page.reload({ waitUntil: "networkidle" });
   const layoutKept = await page.evaluate(() => JSON.parse(window.localStorage.getItem("jh-portfolio-prefs") ?? "{}").projectLayout);
   check("layout persists after reload", layoutKept === "list", String(layoutKept));
-  await page.locator('a[href="#archive"]').first().click();
+  await page.evaluate(() => {
+    location.hash = "#archive";
+  });
+  await page.waitForTimeout(300);
   await page.getByRole("button", { name: "Grid view" }).click();
 
   // ---------- project detail dialog ----------

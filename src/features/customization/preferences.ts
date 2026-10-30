@@ -15,7 +15,7 @@ const PROJECT_IDS = new Set(projects.map((p) => p.id));
 export function defaultPreferences(): Preferences {
   return {
     version: PREFERENCES_VERSION,
-    theme: "light",
+    theme: "dark",
     accent: defaultAccent.hex,
     sectionOrder: resolveSectionOrder(undefined),
     projectOrder: resolveProjectOrder(undefined),
@@ -39,7 +39,7 @@ export function validatePreferences(raw: unknown): Preferences | null {
 
   const theme: ThemeMode = THEMES.includes(record.theme as ThemeMode)
     ? (record.theme as ThemeMode)
-    : "light";
+    : "dark";
 
   const accent =
     typeof record.accent === "string" && isHexColor(record.accent)

@@ -4,6 +4,7 @@ export type SectionId =
   | "about"
   | "skills"
   | "projects"
+  | "services"
   | "archive"
   | "experience"
   | "education"

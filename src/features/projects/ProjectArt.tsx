@@ -4,8 +4,9 @@ import type { Project } from "@/types";
 /**
  * Generated SVG artwork for projects without a real screenshot.
  *
- * Each illustration adapts to the active theme and accent color via CSS
- * variables, so custom colors apply here too. To use a real screenshot
+ * Flat, hard-edged, blueprint-style plates that adapt to the active theme
+ * and accent color via CSS variables. Deliberately abstract — these are
+ * decorative motifs, not mock screenshots. To use a real screenshot
  * instead, set `screenshot` on the project in src/data/projects.ts.
  */
 
@@ -24,10 +25,6 @@ export function ProjectArt({ project, className }: ProjectArtProps) {
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
-        <linearGradient id={`glow-${project.id}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
-        </linearGradient>
         <pattern id={`grid-${project.id}`} width="20" height="20" patternUnits="userSpaceOnUse">
           <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--line)" strokeWidth="1" />
         </pattern>
@@ -36,7 +33,6 @@ export function ProjectArt({ project, className }: ProjectArtProps) {
       {/* Backdrop */}
       <rect width="400" height="225" fill="var(--surface)" />
       <rect width="400" height="225" fill={`url(#grid-${project.id})`} />
-      <rect width="400" height="225" fill={`url(#glow-${project.id})`} />
 
       {renderMotif(project)}
 
@@ -58,7 +54,7 @@ export function ProjectArt({ project, className }: ProjectArtProps) {
 function renderMotif(project: Project): ReactNode {
   switch (project.category) {
     case "web":
-      return <BrowserWindow id={project.id} variant={project.id === "shopsync" ? "store" : "space"} />;
+      return <BrowserWindow variant={project.id === "shopsync" ? "store" : "space"} />;
     case "backend":
       return <Pipeline />;
     case "networking":
@@ -74,8 +70,8 @@ function renderMotif(project: Project): ReactNode {
   }
 }
 
-/** Window chrome used by several motifs. */
-function WindowChrome({ id, width }: { id: string; width: number }) {
+/** Window chrome used by several motifs — square, hairline borders. */
+function WindowChrome({ width }: { width: number }) {
   return (
     <g>
       <rect
@@ -83,7 +79,6 @@ function WindowChrome({ id, width }: { id: string; width: number }) {
         y="38"
         width={width}
         height="150"
-        rx="8"
         fill="var(--raised)"
         stroke="var(--line-strong)"
       />
@@ -94,23 +89,30 @@ function WindowChrome({ id, width }: { id: string; width: number }) {
         y2="58"
         stroke="var(--line)"
       />
-      {["#fb7185", "#fbbf24", "#34d399"].map((color, i) => (
-        <circle key={`${id}-dot-${i}`} cx={(400 - width) / 2 + 14 + i * 14} cy="48" r="3.5" fill={color} opacity="0.7" />
+      {[0, 1, 2].map((i) => (
+        <rect
+          key={i}
+          x={(400 - width) / 2 + 10 + i * 14}
+          y="44"
+          width="7"
+          height="7"
+          fill="var(--line-strong)"
+        />
       ))}
     </g>
   );
 }
 
-function BrowserWindow({ id, variant }: { id: string; variant: "store" | "space" }) {
+function BrowserWindow({ variant }: { variant: "store" | "space" }) {
   const width = 300;
   const left = (400 - width) / 2;
   return (
     <g>
-      <WindowChrome id={id} width={width} />
+      <WindowChrome width={width} />
       {variant === "store" ? (
         <g>
-          <rect x={left + 16} y="70" width="90" height="8" rx="3" fill="var(--accent)" opacity="0.85" />
-          <rect x={left + 16} y="86" width="60" height="6" rx="3" fill="var(--line-strong)" />
+          <rect x={left + 16} y="70" width="90" height="8" fill="var(--accent)" />
+          <rect x={left + 16} y="86" width="60" height="6" fill="var(--line-strong)" />
           {[0, 1, 2, 3].map((i) => (
             <g key={i}>
               <rect
@@ -118,7 +120,6 @@ function BrowserWindow({ id, variant }: { id: string; variant: "store" | "space"
                 y={104 + Math.floor(i / 2) * 38}
                 width="130"
                 height="30"
-                rx="5"
                 fill="var(--surface)"
                 stroke="var(--line-strong)"
               />
@@ -127,7 +128,6 @@ function BrowserWindow({ id, variant }: { id: string; variant: "store" | "space"
                 y={112 + Math.floor(i / 2) * 38}
                 width="14"
                 height="14"
-                rx="3"
                 fill="var(--accent)"
                 opacity={0.35 + i * 0.15}
               />
@@ -136,7 +136,6 @@ function BrowserWindow({ id, variant }: { id: string; variant: "store" | "space"
                 y={114 + Math.floor(i / 2) * 38}
                 width={60 - i * 8}
                 height="5"
-                rx="2.5"
                 fill="var(--faint)"
               />
               <rect
@@ -144,7 +143,6 @@ function BrowserWindow({ id, variant }: { id: string; variant: "store" | "space"
                 y={123 + Math.floor(i / 2) * 38}
                 width="30"
                 height="4"
-                rx="2"
                 fill="var(--line-strong)"
               />
             </g>
@@ -152,15 +150,16 @@ function BrowserWindow({ id, variant }: { id: string; variant: "store" | "space"
         </g>
       ) : (
         <g>
-          <circle cx="200" cy="118" r="26" fill="var(--accent)" opacity="0.85" />
-          <ellipse cx="200" cy="118" rx="42" ry="12" fill="none" stroke="var(--accent)" strokeWidth="1.5" opacity="0.5" transform="rotate(-18 200 118)" />
+          {/* Planet + ring, hard edges */}
+          <circle cx="200" cy="118" r="26" fill="var(--accent)" />
+          <rect x="150" y="112" width="100" height="12" fill="none" stroke="var(--accent)" strokeWidth="1.5" transform="rotate(-18 200 118)" />
           {[
             [128, 84, 5],
             [262, 76, 4],
             [290, 132, 6],
             [120, 150, 4],
           ].map(([cx, cy, r], i) => (
-            <circle key={i} cx={cx} cy={cy} r={r} fill="var(--line-strong)" />
+            <rect key={i} x={cx! - r!} y={cy! - r!} width={r! * 2} height={r! * 2} fill="var(--line-strong)" />
           ))}
         </g>
       )}
@@ -183,14 +182,13 @@ function Pipeline() {
             y="86"
             width="84"
             height="52"
-            rx="7"
             fill="var(--raised)"
             stroke={i === 2 ? "var(--accent)" : "var(--line-strong)"}
             strokeWidth={i === 2 ? 1.5 : 1}
           />
-          <rect x={s.x + 12} y="98" width="36" height="5" rx="2.5" fill="var(--accent)" opacity="0.9" />
-          <rect x={s.x + 12} y="110" width={52 - i * 8} height="4" rx="2" fill="var(--faint)" />
-          <rect x={s.x + 12} y="120" width="40" height="4" rx="2" fill="var(--line-strong)" />
+          <rect x={s.x + 12} y="98" width="36" height="5" fill="var(--accent)" />
+          <rect x={s.x + 12} y="110" width={52 - i * 8} height="4" fill="var(--faint)" />
+          <rect x={s.x + 12} y="120" width="40" height="4" fill="var(--line-strong)" />
           <text
             x={s.x + 42}
             y="156"
@@ -205,15 +203,9 @@ function Pipeline() {
       ))}
       {stages.slice(0, -1).map((s) => (
         <g key={`arrow-${s.x}`}>
-          <line
-            x1={s.x + 88}
-            y1="112"
-            x2={s.x + 104}
-            y2="112"
-            stroke="var(--accent)"
-            strokeWidth="1.5"
-          />
-          <circle cx={s.x + 96} cy="112" r="2.5" fill="var(--accent)" opacity="0.9" />
+          <rect x={s.x + 88} y="110" width="10" height="3" fill="var(--accent)" />
+          <rect x={s.x + 96} y="106" width="3" height="3" fill="var(--accent)" transform={`rotate(45 ${s.x + 97.5} 107.5)`} />
+          <rect x={s.x + 96} y="114" width="3" height="3" fill="var(--accent)" transform={`rotate(-45 ${s.x + 97.5} 115.5)`} />
         </g>
       ))}
       <text x="200" y="70" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="var(--faint)" letterSpacing="1.5">
@@ -262,8 +254,8 @@ function GraphNetwork() {
       })}
       {nodes.map(([cx, cy, r], i) => (
         <g key={i}>
-          <circle cx={cx} cy={cy} r={r} fill="var(--raised)" stroke="var(--line-strong)" />
-          <circle cx={cx} cy={cy} r={2.5} fill={i === 0 || i === 4 ? "var(--accent)" : "var(--faint)"} />
+          <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} fill="var(--raised)" stroke="var(--line-strong)" />
+          <rect x={cx - 2.5} y={cy - 2.5} width="5" height="5" fill={i === 0 || i === 4 ? "var(--accent)" : "var(--faint)"} />
         </g>
       ))}
       <text x="200" y="62" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="var(--faint)" letterSpacing="1.5">
@@ -287,7 +279,7 @@ function SnakeGrid() {
   ];
   return (
     <g>
-      <rect x="112" y="42" width="176" height="144" rx="8" fill="var(--raised)" stroke="var(--line-strong)" />
+      <rect x="112" y="42" width="176" height="144" fill="var(--raised)" stroke="var(--line-strong)" />
       {Array.from({ length: 8 }, (_, i) => (
         <line key={`v${i}`} x1={112 + (i + 1) * cell} y1="42" x2={112 + (i + 1) * cell} y2="186" stroke="var(--line)" />
       ))}
@@ -301,12 +293,11 @@ function SnakeGrid() {
           y={42 + gy * cell + 2}
           width={cell - 4}
           height={cell - 4}
-          rx="4"
           fill="var(--accent)"
           opacity={0.35 + (i / path.length) * 0.65}
         />
       ))}
-      <circle cx={112 + 2 * cell + cell / 2} cy={42 + 2 * cell + cell / 2} r="4.5" fill="var(--ink)" opacity="0.85" />
+      <rect x={112 + 2 * cell + cell / 2 - 4} y={42 + 2 * cell + cell / 2 - 4} width="8" height="8" fill="var(--ink)" />
       <text x="200" y="205" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="var(--faint)" letterSpacing="1.5">
         episode 100000 · avg score 23
       </text>
@@ -319,16 +310,16 @@ function ToolStack({ variant }: { variant: string }) {
   const isPdf = variant === "pdf-merger-tool";
   return (
     <g>
-      <WindowChrome id={variant} width={280} />
+      <WindowChrome width={280} />
       {isPdf ? (
         <g>
           {[0, 1, 2].map((i) => (
             <g key={i} transform={`translate(${108 + i * 70} ${86 + i * 14}) rotate(${-8 + i * 8})`}>
-              <rect width="52" height="66" rx="4" fill="var(--surface)" stroke="var(--line-strong)" />
-              <rect x="8" y="10" width="36" height="4" rx="2" fill="var(--accent)" opacity="0.8" />
-              <rect x="8" y="20" width="28" height="3.5" rx="1.75" fill="var(--faint)" />
-              <rect x="8" y="28" width="32" height="3.5" rx="1.75" fill="var(--faint)" opacity="0.7" />
-              <rect x="8" y="36" width="24" height="3.5" rx="1.75" fill="var(--faint)" opacity="0.5" />
+              <rect width="52" height="66" fill="var(--surface)" stroke="var(--line-strong)" />
+              <rect x="8" y="10" width="36" height="4" fill="var(--accent)" />
+              <rect x="8" y="20" width="28" height="3.5" fill="var(--faint)" />
+              <rect x="8" y="28" width="32" height="3.5" fill="var(--faint)" opacity="0.7" />
+              <rect x="8" y="36" width="24" height="3.5" fill="var(--faint)" opacity="0.5" />
             </g>
           ))}
           <text x="200" y="176" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="var(--faint)" letterSpacing="1.5">
@@ -339,18 +330,10 @@ function ToolStack({ variant }: { variant: string }) {
         <g>
           {rows.map((i) => (
             <g key={i}>
-              <rect
-                x="80"
-                y={72 + i * 24}
-                width="240"
-                height="18"
-                rx="4"
-                fill="var(--surface)"
-                stroke="var(--line)"
-              />
-              <rect x="88" y={77 + i * 24} width="10" height="8" rx="2" fill="var(--accent)" opacity={0.4 + i * 0.2} />
-              <rect x="106" y={78 + i * 24} width={150 - i * 30} height="6" rx="3" fill="var(--faint)" opacity="0.8" />
-              <rect x="290" y={78 + i * 24} width="22" height="6" rx="3" fill="var(--line-strong)" />
+              <rect x="80" y={72 + i * 24} width="240" height="18" fill="var(--surface)" stroke="var(--line)" />
+              <rect x="88" y={77 + i * 24} width="10" height="8" fill="var(--accent)" opacity={0.4 + i * 0.2} />
+              <rect x="106" y={78 + i * 24} width={150 - i * 30} height="6" fill="var(--faint)" opacity="0.8" />
+              <rect x="290" y={78 + i * 24} width="22" height="6" fill="var(--line-strong)" />
             </g>
           ))}
           <text x="200" y="176" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="var(--faint)" letterSpacing="1.5">
@@ -366,32 +349,32 @@ function PhoneFrame({ variant }: { variant: string }) {
   const isRpg = variant === "rpg-the-student-life";
   return (
     <g>
-      <rect x="156" y="36" width="88" height="160" rx="12" fill="var(--raised)" stroke="var(--line-strong)" />
-      <rect x="163" y="48" width="74" height="130" rx="6" fill="var(--surface)" />
-      <rect x="188" y="41" width="24" height="3" rx="1.5" fill="var(--line-strong)" />
+      <rect x="156" y="36" width="88" height="160" fill="var(--raised)" stroke="var(--line-strong)" />
+      <rect x="163" y="48" width="74" height="130" fill="var(--surface)" />
+      <rect x="188" y="41" width="24" height="3" fill="var(--line-strong)" />
       {isRpg ? (
         <g>
-          <rect x="170" y="56" width="34" height="5" rx="2.5" fill="var(--accent)" />
-          <rect x="170" y="70" width="60" height="5" rx="2.5" fill="var(--line-strong)" />
-          <rect x="170" y="80" width="52" height="5" rx="2.5" fill="var(--line-strong)" opacity="0.6" />
+          <rect x="170" y="56" width="34" height="5" fill="var(--accent)" />
+          <rect x="170" y="70" width="60" height="5" fill="var(--line-strong)" />
+          <rect x="170" y="80" width="52" height="5" fill="var(--line-strong)" opacity="0.6" />
           {/* XP bar */}
-          <rect x="170" y="96" width="60" height="6" rx="3" fill="var(--line)" />
-          <rect x="170" y="96" width="40" height="6" rx="3" fill="var(--accent)" />
+          <rect x="170" y="96" width="60" height="6" fill="var(--line)" />
+          <rect x="170" y="96" width="40" height="6" fill="var(--accent)" />
           {/* battle cards */}
           {[0, 1].map((i) => (
-            <rect key={i} x={170} y={112 + i * 26} width="60" height="20" rx="4" fill="var(--raised)" stroke="var(--line-strong)" />
+            <rect key={i} x={170} y={112 + i * 26} width="60" height="20" fill="var(--raised)" stroke="var(--line-strong)" />
           ))}
-          <circle cx="182" cy="122" r="5" fill="var(--accent)" opacity="0.9" />
-          <circle cx="182" cy="148" r="5" fill="var(--accent)" opacity="0.55" />
+          <rect x="178" y="118" width="8" height="8" fill="var(--accent)" />
+          <rect x="178" y="144" width="8" height="8" fill="var(--accent)" opacity="0.55" />
         </g>
       ) : (
         <g>
-          <circle cx="200" cy="86" r="16" fill="var(--accent)" opacity="0.25" />
+          <rect x="182" y="68" width="36" height="36" fill="var(--accent)" opacity="0.25" />
           <path d="M 194 86 l 4 4 l 8 -8" stroke="var(--accent)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-          <rect x="176" y="112" width="48" height="5" rx="2.5" fill="var(--line-strong)" />
-          <rect x="182" y="122" width="36" height="5" rx="2.5" fill="var(--line)" />
-          <rect x="176" y="140" width="48" height="14" rx="5" fill="var(--accent)" opacity="0.85" />
-          <rect x="176" y="160" width="48" height="14" rx="5" fill="var(--raised)" stroke="var(--line-strong)" />
+          <rect x="176" y="112" width="48" height="5" fill="var(--line-strong)" />
+          <rect x="182" y="122" width="36" height="5" fill="var(--line)" />
+          <rect x="176" y="140" width="48" height="14" fill="var(--accent)" />
+          <rect x="176" y="160" width="48" height="14" fill="var(--raised)" stroke="var(--line-strong)" />
         </g>
       )}
     </g>
@@ -402,12 +385,12 @@ function RoverTop() {
   return (
     <g>
       {/* Detection cone */}
-      <path d="M 200 60 L 140 20 L 260 20 Z" fill="var(--accent)" opacity="0.12" />
+      <path d="M 200 60 L 140 20 L 260 20 Z" fill="var(--accent)" opacity="0.14" />
       {/* Rover body */}
-      <rect x="168" y="88" width="64" height="88" rx="10" fill="var(--raised)" stroke="var(--line-strong)" />
-      <rect x="180" y="100" width="40" height="30" rx="5" fill="var(--surface)" stroke="var(--line)" />
+      <rect x="168" y="88" width="64" height="88" fill="var(--raised)" stroke="var(--line-strong)" />
+      <rect x="180" y="100" width="40" height="30" fill="var(--surface)" stroke="var(--line)" />
       <circle cx="200" cy="115" r="8" fill="none" stroke="var(--accent)" strokeWidth="2" />
-      <circle cx="200" cy="115" r="2.5" fill="var(--accent)" />
+      <rect x="197.5" y="112.5" width="5" height="5" fill="var(--accent)" />
       {/* Wheels */}
       {[-8, 96].flatMap((dy) =>
         [150, 232].map((dx) => (
@@ -417,7 +400,6 @@ function RoverTop() {
             y={88 + dy}
             width="18"
             height="24"
-            rx="5"
             fill="var(--surface)"
             stroke="var(--line-strong)"
           />

@@ -56,11 +56,11 @@ describe("resolveOrder", () => {
 });
 
 describe("resolvers against site data", () => {
-  it("section resolver always returns all nine sections", () => {
+  it("section resolver always returns all ten sections", () => {
     const result = resolveSectionOrder(["contact", "garbage"]);
-    expect(result).toHaveLength(9);
+    expect(result).toHaveLength(10);
     expect(result[0]).toBe("contact");
-    expect(new Set(result).size).toBe(9);
+    expect(new Set(result).size).toBe(10);
   });
 
   it("project resolver keeps every project even when stored order is stale", () => {

@@ -4,14 +4,14 @@ export interface AccentPreset {
   hex: string;
 }
 
-/** Six professionally tuned accent presets. The first is the site default. */
+/** Six accent presets. The acid-lime house accent leads; the rest are alternatives. */
 export const accentPresets: AccentPreset[] = [
-  { id: "violet", name: "Electric Violet", hex: "#6d4aff" },
+  { id: "lime", name: "Acid Lime", hex: "#c8f04d" },
   { id: "cyan", name: "Cyan", hex: "#22d3ee" },
-  { id: "lime", name: "Lime", hex: "#a3e635" },
   { id: "amber", name: "Amber", hex: "#fbbf24" },
-  { id: "rose", name: "Rose", hex: "#fb7185" },
-  { id: "emerald", name: "Emerald", hex: "#34d399" },
+  { id: "magenta", name: "Magenta", hex: "#f472b6" },
+  { id: "violet", name: "Violet", hex: "#a78bfa" },
+  { id: "coral", name: "Coral", hex: "#fb7185" },
 ];
 
 export const defaultAccent = accentPresets[0]!;

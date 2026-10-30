@@ -17,14 +17,10 @@ export function Achievements() {
         {achievements.map((achievement) => (
           <article
             key={achievement.id}
-            className="relative overflow-hidden rounded-xl border border-line bg-surface p-6"
+            className="relative border border-line bg-surface p-6"
           >
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent/10 blur-2xl"
-            />
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/12 text-accent-ink">
+              <span className="flex h-10 w-10 items-center justify-center bg-accent/12 text-accent-ink">
                 <Trophy size={18} aria-hidden="true" />
               </span>
               <p className="font-mono text-xs uppercase tracking-wider text-faint">{achievement.year}</p>

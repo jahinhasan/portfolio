@@ -61,8 +61,8 @@ export function ProjectDetailDialog({ project, onClose }: ProjectDetailDialogPro
             </h3>
             <ul className="grid gap-2 sm:grid-cols-2">
               {project.details.features.map((item, i) => (
-                <li key={i} className="flex gap-2.5 rounded-lg border border-line bg-raised/50 p-3 text-sm leading-relaxed text-muted">
-                  <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <li key={i} className="flex gap-2.5 border border-line bg-raised/50 p-3 text-sm leading-relaxed text-muted">
+                  <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-accent" />
                   <span>{item}</span>
                 </li>
               ))}

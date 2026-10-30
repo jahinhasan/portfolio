@@ -20,7 +20,7 @@ export function Experience() {
             {/* Timeline node */}
             <span
               aria-hidden="true"
-              className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-accent bg-bg"
+              className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 border-2 border-accent bg-bg"
             />
             <p className="mb-1.5 font-mono text-[11px] uppercase tracking-wider text-faint">
               {entry.period}
@@ -30,7 +30,7 @@ export function Experience() {
             <ul className="space-y-2">
               {entry.points.map((point, i) => (
                 <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-muted">
-                  <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent/70" />
+                  <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 bg-accent/70" />
                   <span>{point}</span>
                 </li>
               ))}

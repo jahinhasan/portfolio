@@ -4,10 +4,11 @@ import type { Project } from "@/types";
  * Project catalog — the single source of truth for every project on the site.
  *
  * Editing guide:
- *  - `featured: true`  → appears in Featured Projects (draggable by visitors).
- *  - `screenshot`      → drop a real image in /public/images and reference it
- *                        here; when omitted, a generated SVG illustration is
- *                        rendered instead.
+ *  - `featured: true`  → appears in Selected Projects. Exactly the four
+ *                        flagship projects are featured (a test enforces it).
+ *  - `screenshot`      → path under /public for a REAL screenshot only.
+ *                        When omitted, neutral generated art is shown —
+ *                        never invent an image.
  *  - Every claim below was verified against the actual repositories in
  *    October 2026. Keep it that way — no invented features or metrics.
  *
@@ -21,6 +22,39 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "rover-ui",
+    name: "Mars Rover Competition Website",
+    tagline:
+      "Mission-control site for Team Antigravity's University Rover Challenge 2026 rover — a 3D solar-system navigator with telemetry, science, and vision dashboards.",
+    category: "web",
+    tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Three.js", "React Three Fiber", "React Router"],
+    github: "https://github.com/jahinhasan/rover-ui",
+    featured: true,
+    year: "2026",
+    status: "active",
+    role: "Personal project — design & frontend",
+    screenshot: "/images/projects/rover-ui.jpg",
+    details: {
+      problem:
+        "A self-set brief for Team Antigravity's University Rover Challenge effort: a web interface that feels like mission control — a navigable 3D scene as the hub, with data-driven rover dashboards one click away — using only structured JSON as the 'spacecraft data source'.",
+      approach: [
+        "Built the scene with React Three Fiber and Three.js: instanced planet and star nodes, a rover model, postprocessing effects, and camera parallax for depth.",
+        "Routed each planet plus moons/objects catalogs as real routes with React Router, keeping the 3D hub as the index.",
+        "Drove every dashboard (telemetry, vision, navigation, science, team) from typed JSON data files so content is editable without touching components.",
+      ],
+      features: [
+        "Interactive 3D space navigator with postprocessing effects",
+        "Per-planet pages for all eight planets, plus moons and object catalogs",
+        "Dashboard pages (telemetry, vision, science, navigation) fed by structured data",
+        "Rover and team context for the University Rover Challenge (ARES-URC)",
+      ],
+      learnings: [
+        "Performance budgeting for 3D on the web: instance what repeats, and keep the render loop free of per-frame allocations.",
+        "Tailwind CSS v4 with a 3D-heavy app: utility-first styling still works when most layout is a canvas.",
+      ],
+    },
+  },
+  {
     id: "shopsync",
     name: "ShopSync",
     tagline:
@@ -32,7 +66,7 @@ export const projects: Project[] = [
     year: "2026",
     status: "coursework",
     role: "Academic web-development project — backend & frontend", // NEEDS CONFIRMATION: exact role split
-    screenshot: undefined, // add e.g. "/images/shopsync.png" when you capture one
+    screenshot: undefined, // add e.g. "/images/projects/shopsync.jpg" when you capture one
     details: {
       problem:
         "The project brief was a marketplace where three very different audiences share one platform: customers who buy, independent shop owners who sell, and admins who keep the marketplace trustworthy — built around local payment habits (bKash, Nagad, cash on delivery).",
@@ -62,6 +96,76 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "focus-app",
+    name: "Focus Dashboard",
+    tagline:
+      "Local-first productivity command center: CustomTkinter desktop dashboard with AI schedule parsing, timers, a file vault, and gamified habit tracking.",
+    category: "automation",
+    tech: ["Python", "CustomTkinter", "JSON storage", "Gemini API", "PyInstaller"],
+    github: "https://github.com/jahinhasan/Focus-app",
+    featured: true,
+    year: "2026",
+    status: "active",
+    role: "Personal project",
+    screenshot: undefined,
+    details: {
+      problem:
+        "My tasks, class schedule, and study files lived in three different places. I wanted one local-first dashboard that also handles the most annoying input: transcribing a photo of a class routine into recurring calendar entries.",
+      approach: [
+        "Built the desktop core in Python with CustomTkinter, keeping all data in local JSON storage — private by default, no account required.",
+        "Integrated AI schedule parsing (Gemini) for photo/screenshot → structured routine, with offline fuzzy-matched fallbacks so the app keeps working without the API.",
+        "Packaged the app for distribution with PyInstaller alongside the source build.",
+      ],
+      features: [
+        "Unified timeline of tasks and recurring class schedules, with overdue persistence",
+        "XP/level system with daily habits and streaks; attendance tracking per class",
+        "Pomodoro and stopwatch timers that survive app restarts via elapsed-time calculation",
+        "Subject-based file vault with secure local persistence",
+        "AI assistant chat for schedule queries with graceful offline degradation",
+      ],
+      learnings: [
+        "Keeping a desktop UI responsive means moving every slow operation off the main thread.",
+        "Designing AI features to fail soft: the app must stay useful offline.",
+      ],
+    },
+  },
+  {
+    id: "rpg-the-student-life",
+    name: "RPG — The Student Life",
+    tagline:
+      "Gamified CSE learning platform: realtime battle arenas, skill trees, classmate leaderboards, and 2D campus maps on Flutter + Firebase.",
+    category: "mobile",
+    tech: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Cloud Functions", "Riverpod", "Clean Architecture"],
+    github: "https://github.com/jahinhasan/RPG-the-student-life",
+    featured: true,
+    year: "2026",
+    status: "active",
+    role: "Team project",
+    screenshot: undefined,
+    details: {
+      problem:
+        "University coursework is more motivating when progress is visible and competitive. The team set out to turn CSE courses into a realtime RPG: XP, battles, leaderboards — without letting concurrent players corrupt shared state.",
+      approach: [
+        "Structured the app with Clean Architecture and Riverpod: features for auth, student, and admin, with shared services for matchmaking and storage.",
+        "Made matchmaking transaction-safe with Firestore transactions so simultaneous queue joins can't double-match.",
+        "Synced battle boards, leaderboards, and live activity tickers through Firestore stream providers, with Google Sign-In for student accounts.",
+        "Scoped leaderboards to the viewer's own batch, department, and section so competition stays fair and local.",
+      ],
+      features: [
+        "Competitive battle arenas with automated, transaction-safe matchmaking and graceful queue cancellation",
+        "“Spot the Error” debugging game and a compiler sandbox with mock compile pipelines and test-assertion logs",
+        "Keystroke-exact typing race with autocorrect and suggestion input disabled for clean mobile code entry",
+        "CSE skill trees (Web, Mobile, Backend, DevOps) bound to level and XP",
+        "2D campus map with live avatar positions",
+        "Admin console for seeding questions, quests, and the student roster; widget tests for core flows",
+      ],
+      learnings: [
+        "Firestore transactions vs. simple writes: what actually breaks when two clients race.",
+        "Stream-provider architecture keeps realtime UIs declarative instead of imperative.",
+      ],
+    },
+  },
+  {
     id: "smartroute-lab",
     name: "SmartRoute Lab",
     tagline:
@@ -69,7 +173,7 @@ export const projects: Project[] = [
     category: "networking",
     tech: ["Python 3.12+", "Pydantic", "scikit-learn", "NetworkX", "Streamlit", "pytest", "GitHub Actions"],
     github: "https://github.com/jahinhasan/smartroute-lab",
-    featured: true,
+    featured: false,
     year: "2026",
     status: "active",
     role: "Personal project",
@@ -106,7 +210,7 @@ export const projects: Project[] = [
     category: "backend",
     tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Alembic", "XGBoost", "OpenAI API", "React", "TypeScript", "Docker"],
     github: "https://github.com/jahinhasan/aprs",
-    featured: true,
+    featured: false,
     year: "2026",
     status: "active",
     role: "Personal project, built in staged milestones",
@@ -144,7 +248,7 @@ export const projects: Project[] = [
     category: "ai-ml",
     tech: ["Python", "PyTorch", "NumPy", "pygame"],
     github: "https://github.com/jahinhasan/snake-agent",
-    featured: true,
+    featured: false,
     year: "2026",
     status: "active",
     role: "Personal project",
@@ -179,7 +283,7 @@ export const projects: Project[] = [
     category: "automation",
     tech: ["Python", "Tkinter", "requests", "BeautifulSoup4", "pandas"],
     github: "https://github.com/jahinhasan/web-scraper-tool",
-    featured: true,
+    featured: false,
     year: "2026",
     status: "complete",
     role: "Personal project",
@@ -201,72 +305,6 @@ export const projects: Project[] = [
       learnings: [
         "Thread/queue discipline: one producer, bounded work, UI updates marshalled back to the main loop.",
         "Real-world pages break selector assumptions — attribute fallbacks and per-field error isolation matter.",
-      ],
-    },
-  },
-  {
-    id: "rpg-the-student-life",
-    name: "RPG — The Student Life",
-    tagline:
-      "Gamified CSE learning platform: realtime battle arenas, skill trees, classmate leaderboards, and 2D campus maps on Flutter + Firebase.",
-    category: "mobile",
-    tech: ["Flutter", "Dart", "Firebase Firestore", "Cloud Functions", "Riverpod", "Clean Architecture"],
-    github: "https://github.com/jahinhasan/RPG-the-student-life",
-    featured: true,
-    year: "2026",
-    status: "active",
-    role: "Team project",
-    details: {
-      problem:
-        "University coursework is more motivating when progress is visible and competitive. The team set out to turn CSE courses into a realtime RPG: XP, battles, leaderboards — without letting concurrent players corrupt shared state.",
-      approach: [
-        "Structured the app with Clean Architecture and Riverpod: features for auth, student, and admin, with shared services for matchmaking and storage.",
-        "Made matchmaking transaction-safe with Firestore transactions so simultaneous queue joins can't double-match.",
-        "Synced battle boards, leaderboards, and live activity tickers through Firestore stream providers.",
-        "Scoped leaderboards to the viewer's own batch, department, and section so competition stays fair and local.",
-      ],
-      features: [
-        "Competitive battle arenas with automated, transaction-safe matchmaking and graceful queue cancellation",
-        "“Spot the Error” debugging game and a compiler sandbox with mock compile pipelines and test-assertion logs",
-        "Keystroke-exact typing race with autocorrect and suggestion input disabled for clean mobile code entry",
-        "CSE skill trees (Web, Mobile, Backend, DevOps) bound to level and XP",
-        "2D campus map with live avatar positions",
-        "Admin console for seeding questions, quests, and the student roster; widget tests for core flows",
-      ],
-      learnings: [
-        "Firestore transactions vs. simple writes: what actually breaks when two clients race.",
-        "Stream-provider architecture keeps realtime UIs declarative instead of imperative.",
-      ],
-    },
-  },
-  {
-    id: "rover-ui",
-    name: "Rover UI",
-    tagline:
-      "3D solar-system navigator and mission-control dashboards built with React Three Fiber — planets, moons, telemetry, and vision panels.",
-    category: "web",
-    tech: ["React 18", "TypeScript", "Three.js", "React Three Fiber", "drei", "React Router 7", "Tailwind CSS 4", "Vite"],
-    github: "https://github.com/jahinhasan/rover-ui",
-    featured: true,
-    year: "2026",
-    status: "active",
-    role: "Personal project",
-    details: {
-      problem:
-        "A self-set brief: make a web interface that feels like mission control — a navigable 3D scene as the hub, with data-driven dashboards one click away — using only structured JSON as the 'spacecraft data source'.",
-      approach: [
-        "Built the scene with React Three Fiber: instanced planet and star nodes, a rover model, and camera parallax for depth.",
-        "Routed each planet plus moons/objects catalogs as real routes with React Router, keeping the 3D hub as the index.",
-        "Drove every dashboard (telemetry, vision, navigation, science) from typed JSON data files so content is editable without touching components.",
-      ],
-      features: [
-        "Interactive 3D space navigator with postprocessing effects",
-        "Per-planet pages for all eight planets, plus moons and object catalogs",
-        "Dashboard pages (telemetry, vision, science, navigation) fed by structured data",
-      ],
-      learnings: [
-        "Performance budgeting for 3D on the web: instance what repeats, and keep the render loop free of per-frame allocations.",
-        "Tailwind CSS v4 with a 3D-heavy app: utility-first styling still works when most layout is a canvas.",
       ],
     },
   },
@@ -299,39 +337,6 @@ export const projects: Project[] = [
       learnings: [
         "Keeping long operations off the UI thread is the difference between 'works' and 'usable'.",
         "Range parsing looks trivial until users type `7-end` — validate early, fail clearly.",
-      ],
-    },
-  },
-  {
-    id: "focus-app",
-    name: "Focus App",
-    tagline:
-      "Productivity command center: CustomTkinter desktop dashboard with a Flutter mobile companion, AI schedule parsing, and gamified habit tracking.",
-    category: "automation",
-    tech: ["Python", "CustomTkinter", "Flutter", "Dart", "Gemini API"],
-    github: "https://github.com/jahinhasan/Focus-app",
-    featured: false,
-    year: "2026",
-    status: "active",
-    role: "Personal project",
-    details: {
-      problem:
-        "My tasks, class schedule, and study files lived in three different places. I wanted one local-first dashboard that also handles the most annoying input: transcribing a photo of a class routine into recurring calendar entries.",
-      approach: [
-        "Built the desktop core in Python with CustomTkinter and mirrored the core business logic in Dart for the Flutter mobile companion, keeping the two behaviorally in sync.",
-        "Integrated Gemini 1.5 Flash for photo/screenshot → structured routine parsing, with offline fuzzy-matched fallbacks so the app keeps working without the API.",
-        "Kept all data in local JSON storage — private by default, no account required.",
-      ],
-      features: [
-        "Unified timeline of tasks and recurring class schedules, with overdue persistence",
-        "XP/level system with daily habits and streaks; attendance tracking per class",
-        "Pomodoro and stopwatch timers that survive app restarts via elapsed-time calculation",
-        "Subject-based file vault with open-from-app persistence on mobile",
-        "AI assistant chat for schedule queries with graceful offline degradation",
-      ],
-      learnings: [
-        "Mirroring business logic across two languages is a discipline test — keep the JSON schema as the single contract.",
-        "Designing AI features to fail soft: the app must stay useful on flights and dead zones.",
       ],
     },
   },

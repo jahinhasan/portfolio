@@ -20,7 +20,7 @@ export function BackToTop() {
       aria-label="Back to top"
       tabIndex={visible ? 0 : -1}
       className={cn(
-        "fixed bottom-5 right-5 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-muted shadow-panel transition-all duration-300 hover:border-accent hover:text-accent-ink",
+        "fixed bottom-5 right-5 z-30 flex h-10 w-10 items-center justify-center border border-line bg-surface text-muted shadow-panel transition-all duration-300 hover:border-accent hover:text-accent-ink",
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0",
       )}
     >

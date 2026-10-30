@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import { GraduationCap, MapPin, Target, Wrench } from "lucide-react";
+import { GraduationCap, MapPin, Hammer, Workflow } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
 import { getSectionMeta } from "@/data/navigation";
 import { aboutParagraphs, profile } from "@/data/profile";
+import portrait from "@/assets/jahin.jpg";
 
 const meta = getSectionMeta("about");
 
@@ -12,49 +12,62 @@ export function About() {
       id={meta.id}
       kicker={meta.index}
       label={meta.label}
-      title="Practical builder, honest engineer"
-      description="What I work on, how I work, and where I'm headed."
+      title="About me"
+      description="Computer Science background, frontend and backend experience, and a bias toward automation."
+      splitHeader
     >
-      <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-        <div className="space-y-5">
-          {aboutParagraphs.map((paragraph, i) => (
-            <p key={i} className="leading-relaxed text-muted">
-              {paragraph}
-            </p>
-          ))}
-        </div>
+      <div className="grid gap-10 lg:grid-cols-[280px_1fr] lg:gap-14">
+        {/* Portrait — flat frame, hard shadow, grayscale until hovered */}
+        <figure className="group relative w-fit max-w-full">
+          <div className="shadow-hard transition-transform duration-200 group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none motion-reduce:transition-none">
+            <img
+              src={portrait}
+              alt="Portrait of Jahin Hasan"
+              width={1117}
+              height={1600}
+              className="aspect-[4/5] w-64 border border-line-strong object-cover object-top grayscale transition-[filter] duration-300 group-hover:grayscale-0 motion-reduce:transition-none sm:w-72 lg:w-full"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            {profile.name} — {profile.location}
+          </figcaption>
+        </figure>
 
-        <aside aria-label="Quick facts" className="space-y-3">
-          <FactCard icon={<GraduationCap size={16} aria-hidden="true" />} label="Studying">
-            CSE undergraduate, BAUST — Rangpur, Bangladesh
-          </FactCard>
-          <FactCard icon={<Wrench size={16} aria-hidden="true" />} label="Building with">
-            Laravel & FastAPI backends, React frontends, Python automation and ML tooling
-          </FactCard>
-          <FactCard icon={<Target size={16} aria-hidden="true" />} label="Looking for">
-            Internships and real-world projects in web development or automation
-          </FactCard>
-          <FactCard icon={<MapPin size={16} aria-hidden="true" />} label="Based in">
-            {profile.location} — open to remote work
-          </FactCard>
-        </aside>
+        <div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12">
+          <div className="space-y-5">
+            {aboutParagraphs.map((paragraph, i) => (
+              <p key={i} className="leading-relaxed text-muted">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <aside aria-label="Quick facts" className="mt-8 space-y-0 border-t border-line lg:mt-0 lg:border-t-0">
+            <Fact icon={<GraduationCap size={15} aria-hidden="true" />} label="Studying">
+              CSE, BAUST — Rangpur, Bangladesh
+            </Fact>
+            <Fact icon={<Hammer size={15} aria-hidden="true" />} label="Building with">
+              React &amp; TypeScript on the frontend, Laravel + MySQL on the backend
+            </Fact>
+            <Fact icon={<Workflow size={15} aria-hidden="true" />} label="Interested in">
+              Automation — tools that take repetitive work off human hands
+            </Fact>
+            <Fact icon={<MapPin size={15} aria-hidden="true" />} label="Based in">
+              {profile.location} — open to remote work
+            </Fact>
+          </aside>
+        </div>
       </div>
     </SectionShell>
   );
 }
 
-function FactCard({
-  icon,
-  label,
-  children,
-}: {
-  icon: ReactNode;
-  label: string;
-  children: ReactNode;
-}) {
+function Fact({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
   return (
-    <div className="flex gap-3.5 rounded-xl border border-line bg-surface p-4">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
+    <div className="flex gap-3 border-b border-line py-4">
+      <span className="mt-0.5 text-accent-ink" aria-hidden="true">
         {icon}
       </span>
       <div>

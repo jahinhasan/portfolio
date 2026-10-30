@@ -51,10 +51,9 @@ describe("project data integrity", () => {
     expect(projects.some((p) => p.id === "payment-recovery-digital-twin")).toBe(false);
   });
 
-  it("featured selection stays within the 5–7 range", () => {
-    const featured = projects.filter((p) => p.featured);
-    expect(featured.length).toBeGreaterThanOrEqual(5);
-    expect(featured.length).toBeLessThanOrEqual(7);
+  it("features exactly the four flagship projects", () => {
+    const featured = projects.filter((p) => p.featured).map((p) => p.id);
+    expect(featured).toEqual(["rover-ui", "shopsync", "focus-app", "rpg-the-student-life"]);
   });
 });
 
@@ -78,16 +77,17 @@ describe("skills data integrity", () => {
 });
 
 describe("navigation and theme data", () => {
-  it("covers the nine required sections exactly once", () => {
+  it("covers the ten required sections exactly once", () => {
     expect(sections.map((s) => s.id)).toEqual([
       "hero",
       "about",
-      "skills",
       "projects",
-      "archive",
+      "skills",
+      "services",
       "experience",
       "education",
       "achievements",
+      "archive",
       "contact",
     ]);
   });

@@ -4,6 +4,8 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { PreferencesProvider } from "@/features/customization/PreferencesContext";
 import { usePreferences } from "@/features/customization/usePreferences";
 import { STORAGE_KEY, loadPreferences } from "@/features/customization/preferences";
+import { defaultProjectOrder } from "@/data/projects";
+import { defaultSectionOrder } from "@/data/navigation";
 import { applyAccent, applyDocumentTheme } from "@/features/customization/applyTheme";
 
 function useProbe(): ReturnType<typeof usePreferences> {
@@ -28,7 +30,7 @@ describe("PreferencesProvider", () => {
 
   it("starts from defaults when storage is empty", () => {
     const { result } = renderProvider();
-    expect(result.current.preferences.theme).toBe("light");
+    expect(result.current.preferences.theme).toBe("dark");
     expect(result.current.persisted).toBe(false);
   });
 
@@ -54,7 +56,7 @@ describe("PreferencesProvider", () => {
     const firstDefault = result.current.preferences.sectionOrder[0];
     act(() => result.current.moveSection(1, 0));
     await waitFor(() => expect(result.current.preferences.sectionOrder[0]).not.toBe(firstDefault));
-    expect(result.current.preferences.sectionOrder).toHaveLength(9);
+    expect(result.current.preferences.sectionOrder).toHaveLength(10);
   });
 
   it("moveProject reorders the full catalog", async () => {
@@ -88,7 +90,7 @@ describe("PreferencesProvider", () => {
       result.current.moveSection(0, 3);
     });
     act(() => result.current.resetAll());
-    await waitFor(() => expect(result.current.preferences.theme).toBe("light"));
+    await waitFor(() => expect(result.current.preferences.theme).toBe("dark"));
     expect(result.current.persisted).toBe(false);
     expect(window.localStorage.getItem(STORAGE_KEY)).toBeNull();
   });
@@ -100,7 +102,7 @@ describe("customization panel interactions (light DOM integration)", () => {
     return (
       <div>
         <span data-testid="theme">{preferences.theme}</span>
-        <button onClick={() => setTheme("dark")}>go dark</button>
+        <button onClick={() => setTheme("light")}>go light</button>
       </div>
     );
   }
@@ -113,10 +115,10 @@ describe("customization panel interactions (light DOM integration)", () => {
         <PanelProbe />
       </PreferencesProvider>,
     );
-    expect(screen.getByTestId("theme")).toHaveTextContent("light");
-    await user.click(screen.getByText("go dark"));
     expect(screen.getByTestId("theme")).toHaveTextContent("dark");
-    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY)!).theme).toBe("dark");
+    await user.click(screen.getByText("go light"));
+    expect(screen.getByTestId("theme")).toHaveTextContent("light");
+    expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY)!).theme).toBe("light");
   });
 });
 
@@ -137,7 +139,7 @@ describe("project filtering + ordering persistence round-trip", () => {
     const reloaded = loadPreferences();
     expect(JSON.parse(stored)).toEqual(reloaded.preferences);
     expect(reloaded.persisted).toBe(true);
-    expect(reloaded.preferences.projectOrder[7]).toBe("shopsync"); // default index 0 moved to 7
-    expect(reloaded.preferences.sectionOrder[0]).toBe("skills");
+    expect(reloaded.preferences.projectOrder[7]).toBe(defaultProjectOrder[0]); // default index 0 moved to 7
+    expect(reloaded.preferences.sectionOrder[0]).toBe(defaultSectionOrder[2]); // index 2 moved to 0
   });
 });

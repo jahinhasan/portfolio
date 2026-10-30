@@ -1,22 +1,23 @@
 # Jahin Hasan — Portfolio
 
-Personal portfolio for **Md. Jahin Hasan** — CSE undergraduate at BAUST, Rangpur, focused on
-web development and automation. Single-page React app, no backend, everything a visitor
-customizes stays in their own browser. White-first design with a dark mode, a signature
-violet→cyan→rose gradient, and a hero portrait.
+Personal portfolio for **Jahin Hasan** — developer positioned as
+*Frontend Developer | Web Developer | Automation Enthusiast*, available for freelance
+projects. Single-page React app, no backend, everything a visitor customizes stays in
+their own browser. Neo-brutalist editorial design: deep charcoal, warm off-white type,
+an acid-lime accent, Archivo Black display headlines, hairline rules, hard offset
+shadows, and a light "warm paper" theme as the alternative.
 
 ## Stack
 
 - **React 19** + **TypeScript** (strict) + **Vite 7**
 - **Tailwind CSS v4** (design tokens via `@theme inline`)
-- **Motion** for hero/panel animation; scroll reveals use IntersectionObserver +
+- **Motion** for entrance fades; scroll reveals use IntersectionObserver +
   CSS transitions with a fail-safe timer (respects `prefers-reduced-motion`)
-- **Living background** — drifting aurora blobs, a morphing organic shape, a
-  pointer-following spotlight, and film grain (`BackgroundLayers`, all
-  transform/opacity-only and frozen under reduced motion)
-- **dnd-kit** for drag-and-drop (section ordering, featured grid)
+- **Pure-CSS devices** — blueprint dot grid, animated link underlines, a
+  scroll-progress hairline (`animation-timeline: scroll()` where supported)
+- **dnd-kit** for drag-and-drop (section ordering, featured project rows)
 - **lucide-react** icons + a few local inline SVGs
-- **Vitest** + **Testing Library** (83 unit tests) and a **Playwright** browser suite (32 checks)
+- **Vitest** + **Testing Library** (83 unit tests) and a **Playwright** browser suite (35 checks)
 
 ## Quick start
 
@@ -60,9 +61,9 @@ All content lives in typed data files under `src/data/` — edit these, not comp
 
 | File | Contents |
 | --- | --- |
-| `profile.ts` | Name, role, email, phone, location, about paragraphs. `linkedin` is `null` until a real URL exists — the UI hides LinkedIn entirely while it's null. |
-| `projects.ts` | All 12 projects. `featured: true` puts one in the homepage grid; the rest go to the archive. `demo` stays `undefined` unless a live demo actually exists (a test enforces this). `mirrorOf` marks a repo that duplicates another entry. |
-| `skills.ts` | 7 skill groups. Every skill carries `evidence` — project ids that prove it, shown as tooltips. Don't add a skill you can't evidence. |
+| `profile.ts` | Name, positioning, availability, email, phone, location, about paragraphs. `linkedin` is `null` until a real URL exists — the UI hides LinkedIn entirely while it's null. |
+| `projects.ts` | All 12 projects. Exactly four are `featured: true` (the Selected Projects showcase — a test enforces which); the rest go to the archive. `demo` stays `undefined` unless a live demo actually exists (a test enforces this). `mirrorOf` marks a repo that duplicates another entry. |
+| `skills.ts` | 4 skill groups (Frontend / Backend / Database / Tools). Every skill carries `evidence` — project ids that prove it, shown as tooltips. Don't add a skill you can't evidence. |
 | `experience.ts` | Experience timeline, education, achievements. Only the verified UIU CSE Fest 2025 result is listed. Education has no invented years — add real ones when you want them. |
 | `navigation.ts` | Section labels and the default section order. |
 
@@ -81,9 +82,10 @@ evidence, unfeatured-catalog mismatches, and fabricated demo links.
 
 The **Customize** button in the navbar opens a panel where each visitor can:
 
-- Switch dark/light theme and pick one of six accent presets or any custom color —
-  foreground text is re-derived for contrast (WCAG AA) on every choice
-- Reorder the nine page sections by dragging (or with keyboard: handle → Space → arrows →
+- Switch dark (charcoal, default) / light (warm paper) theme and pick one of six
+  accent presets (acid lime leads) or any custom color — foreground text is
+  re-derived for contrast (WCAG AA) on every choice
+- Reorder the ten page sections by dragging (or with keyboard: handle → Space → arrows →
   Space; every row also has ↑/↓ buttons)
 - Reorder the featured project grid and toggle which projects are featured
 - Switch the archive between grid and list layouts
@@ -98,9 +100,10 @@ are never affected.
 
 - `src/test/` — storage abstraction, order resolution, preference validation, filtering,
   contrast math, data integrity, provider behavior (83 tests)
-- `scripts/browser-test.mjs` — real-Chromium checks: theme/accent application and
-  persistence, section reorder → nav sync, archive search/filter/layout, dialogs,
-  clipboard, CV asset, GitHub links, mobile viewport overflow, reduced motion (32 checks)
+- `scripts/browser-test.mjs` — real-Chromium checks: editorial hero, ten sections,
+  availability indicator, theme/accent application and persistence, section reorder →
+  nav sync, archive search/filter/layout, dialogs, clipboard, CV asset, GitHub links,
+  mobile viewport overflow, reduced motion (35 checks)
 
 ```bash
 npm test && npm run test:browser
@@ -111,7 +114,7 @@ npm test && npm run test:browser
 ```text
 src/
   components/      ui primitives (Button, Dialog, SectionShell, Tag, icons)
-  sections/        the nine page sections
+  sections/        the ten page sections
   features/
     customization/ preferences model, context, theme application, panel
     projects/      cards, archive, filtering, detail dialogs, artwork
@@ -133,3 +136,16 @@ public/            favicon, robots.txt, sitemap.xml, documents/, images/
 - [ ] **Education years** — enrollment/expected graduation are deliberately blank
 - [ ] **ShopSync role split** — confirm how you'd phrase individual vs team contribution
 - [ ] **Deployment target** — then decide if `base=/portfolio/` (`build:pages`) still applies
+
+## Design system quick reference
+
+| Token | Dark (default) | Light |
+| --- | --- | --- |
+| `--bg` | `#121411` deep charcoal | `#f1efe7` warm paper |
+| `--surface` | `#191c17` | `#faf9f3` |
+| `--ink` | `#f1efe7` warm off-white | `#1b1d16` |
+| `--accent` (default preset) | `#c8f04d` acid lime | same, `--accent-ink` darkened for text |
+
+House rules: no gradients, no glassmorphism, no rounded cards, no floating shapes,
+no skill bars. Type: Archivo Black (display, uppercase) / Inter (body) / JetBrains Mono
+(metadata). Screenshots of real projects only — `screenshot` stays unset otherwise.

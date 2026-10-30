@@ -124,7 +124,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/12 text-accent-ink">
+            <span className="flex h-8 w-8 items-center justify-center bg-accent/12 text-accent-ink">
               <Palette size={16} aria-hidden="true" />
             </span>
             <div>
@@ -136,7 +136,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
             type="button"
             onClick={onClose}
             aria-label="Close customization panel"
-            className="rounded-lg p-1.5 text-muted hover:bg-raised hover:text-ink"
+            className=" p-1.5 text-muted hover:bg-raised hover:text-ink"
           >
             <X size={18} aria-hidden="true" />
           </button>
@@ -144,7 +144,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
 
         <div className="flex-1 space-y-8 overflow-y-auto px-5 py-6">
           {/* Storage notice */}
-          <p className="rounded-lg border border-line bg-raised/60 px-3.5 py-3 text-xs leading-relaxed text-muted">
+          <p className=" border border-line bg-raised/60 px-3.5 py-3 text-xs leading-relaxed text-muted">
             Changes are stored locally in <strong className="text-ink">your browser</strong> and apply
             to your view only. They never modify the published site, its source code, or anyone
             else's experience.
@@ -162,7 +162,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
               <div
                 role="radiogroup"
                 aria-label="Interface theme"
-                className="grid grid-cols-2 gap-1 rounded-lg border border-line bg-raised/60 p-1"
+                className="grid grid-cols-2 gap-1 border border-line bg-raised/60 p-1"
               >
                 {(["dark", "light"] as const).map((mode) => (
                   <button
@@ -172,7 +172,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                     aria-checked={preferences.theme === mode}
                     onClick={() => setTheme(mode)}
                     className={cn(
-                      "h-8 rounded-md text-xs font-medium capitalize transition-colors",
+                      "h-8 text-xs font-medium capitalize transition-colors",
                       preferences.theme === mode
                         ? "bg-accent text-accent-fg"
                         : "text-muted hover:text-ink",
@@ -198,7 +198,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                       title={preset.name}
                       onClick={() => setAccent(preset.hex)}
                       className={cn(
-                        "flex h-9 items-center justify-center rounded-lg border-2 transition-transform hover:scale-105",
+                        "flex h-9 items-center justify-center border-2 transition-transform hover:scale-105",
                         active ? "border-ink" : "border-transparent",
                       )}
                       style={{ backgroundColor: preset.hex }}
@@ -213,10 +213,10 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
               </div>
 
               <div className="mt-3 flex items-center gap-2">
-                <label className="relative inline-flex h-9 cursor-pointer items-center gap-2 overflow-hidden rounded-lg border border-line px-3 text-xs text-muted hover:border-accent hover:text-accent-ink">
+                <label className="relative inline-flex h-9 cursor-pointer items-center gap-2 overflow-hidden border border-line px-3 text-xs text-muted hover:border-accent hover:text-accent-ink">
                   <span
                     aria-hidden="true"
-                    className="h-4 w-4 rounded-full border border-white/20"
+                    className="h-4 w-4 border border-white/20"
                     style={{ backgroundColor: preferences.accent }}
                   />
                   Custom
@@ -239,7 +239,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                   placeholder="#7c5cff"
                   aria-label="Accent color as hex value"
                   spellCheck={false}
-                  className="h-9 w-24 rounded-lg border border-line bg-raised/60 px-2.5 font-mono text-xs text-ink placeholder:text-faint focus:border-accent focus:outline-none"
+                  className="h-9 w-24 border border-line bg-raised/60 px-2.5 font-mono text-xs text-ink placeholder:text-faint focus:border-accent focus:outline-none"
                 />
                 <button
                   type="button"
@@ -247,7 +247,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                     resetAccent();
                     setHexDraft(null);
                   }}
-                  className="ml-auto inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 font-mono text-[11px] uppercase tracking-wider text-faint hover:text-ink"
+                  className="ml-auto inline-flex items-center gap-1.5 px-2 py-1.5 font-mono text-[11px] uppercase tracking-wider text-faint hover:text-ink"
                 >
                   <RotateCcw size={12} aria-hidden="true" />
                   Reset
@@ -340,7 +340,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                     const isFeatured = isProjectFeatured(p, preferences.featuredOverrides);
                     return (
                       <li key={p.id}>
-                        <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 text-sm text-muted hover:bg-raised/60 hover:text-ink">
+                        <label className="flex cursor-pointer items-center gap-2.5 px-2 py-1.5 text-sm text-muted hover:bg-raised/60 hover:text-ink">
                           <input
                             type="checkbox"
                             checked={isFeatured}
@@ -363,7 +363,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
               <div
                 role="radiogroup"
                 aria-label="Archive layout"
-                className="grid grid-cols-2 gap-1 rounded-lg border border-line bg-raised/60 p-1"
+                className="grid grid-cols-2 gap-1 border border-line bg-raised/60 p-1"
               >
                 {(["grid", "list"] as const).map((layout) => (
                   <button
@@ -373,7 +373,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
                     aria-checked={preferences.projectLayout === layout}
                     onClick={() => setProjectLayout(layout)}
                     className={cn(
-                      "h-8 rounded-md text-xs font-medium capitalize transition-colors",
+                      "h-8 text-xs font-medium capitalize transition-colors",
                       preferences.projectLayout === layout
                         ? "bg-accent text-accent-fg"
                         : "text-muted hover:text-ink",
@@ -392,7 +392,7 @@ export function CustomizationPanel({ open, onClose }: CustomizationPanelProps) {
           <button
             type="button"
             onClick={resetAll}
-            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-line text-sm text-muted transition-colors hover:border-accent hover:text-accent-ink"
+            className="inline-flex h-9 w-full items-center justify-center gap-2 border border-line text-sm text-muted transition-colors hover:border-accent hover:text-accent-ink"
           >
             <RotateCcw size={14} aria-hidden="true" />
             Reset everything to default

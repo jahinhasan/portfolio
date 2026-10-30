@@ -49,8 +49,8 @@ describe("validatePreferences", () => {
       projectLayout: "table",
       featuredOverrides: { shopsync: "yes", bogusProject: true, "snake-agent": false },
     });
-    expect(result?.theme).toBe("light");
-    expect(result?.accent).toBe("#6d4aff");
+    expect(result?.theme).toBe("dark");
+    expect(result?.accent).toBe("#c8f04d");
     expect(result?.projectLayout).toBe("grid");
     // Unknown project ids stripped; boolean checked.
     expect(result?.featuredOverrides).toEqual({ "snake-agent": false });
@@ -120,6 +120,7 @@ describe("load / save preferences", () => {
 
   it("default preferences cover the full data catalog", () => {
     expect(defaultPreferences().projectOrder).toEqual(projects.map((p) => p.id));
-    expect(defaultPreferences().accent).toBe("#6d4aff");
+    expect(defaultPreferences().accent).toBe("#c8f04d");
+    expect(defaultPreferences().theme).toBe("dark");
   });
 });

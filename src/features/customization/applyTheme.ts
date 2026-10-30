@@ -11,7 +11,7 @@ export function applyDocumentTheme(mode: ThemeMode): void {
   const root = document.documentElement;
   root.dataset.theme = mode;
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", mode === "dark" ? "#0a0b0f" : "#f5f5f8");
+  if (meta) meta.setAttribute("content", mode === "dark" ? "#121411" : "#f1efe7");
 }
 
 export function applyAccent(hex: string): void {

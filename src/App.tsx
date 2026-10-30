@@ -8,12 +8,12 @@ import type { LoadedPreferences } from "@/features/customization/preferences";
 import { CustomizationPanel } from "@/features/customization/CustomizationPanel";
 import { Navbar } from "@/features/navigation/Navbar";
 import { BackToTop } from "@/features/navigation/BackToTop";
-import { BackgroundLayers } from "@/components/BackgroundLayers";
 import { Footer } from "@/components/Footer";
 import { ProjectDetailDialog } from "@/features/projects/ProjectDetailDialog";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Skills } from "@/sections/Skills";
+import { Services } from "@/sections/Services";
 import { FeaturedProjects } from "@/sections/FeaturedProjects";
 import { ArchiveSection } from "@/sections/ArchiveSection";
 import { Experience } from "@/sections/Experience";
@@ -29,6 +29,8 @@ function renderSection(id: SectionId, openDetails: (p: Project) => void): ReactN
       return <About />;
     case "skills":
       return <Skills />;
+    case "services":
+      return <Services />;
     case "projects":
       return <FeaturedProjects onOpenDetails={openDetails} />;
     case "archive":
@@ -57,7 +59,6 @@ export function App({ initialPreferences }: AppProps) {
   return (
     <MotionConfig reducedMotion="user">
       <PreferencesProvider initial={initialPreferences}>
-        <BackgroundLayers />
         <a href="#about" className="skip-link">
           Skip to content
         </a>
