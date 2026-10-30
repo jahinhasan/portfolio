@@ -20,8 +20,9 @@ export const profile = {
    * While null, no LinkedIn link is rendered anywhere on the site.
    */
   linkedin: null as string | null,
-  /** Served from /public/documents — your official CV. */
-  cvPath: "/documents/Md_Jahin_Hasan_CV.pdf",
+  /** Served from /public/documents — your official CV. BASE_URL keeps the
+   *  link correct on GitHub Pages (`/portfolio/`) and in local dev. */
+  cvPath: `${import.meta.env.BASE_URL}documents/Md_Jahin_Hasan_CV.pdf`,
 
   /** Hero headline, rendered as an oversized display composition. */
   heroHeadline: "Building digital experiences.",

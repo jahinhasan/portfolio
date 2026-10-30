@@ -6,9 +6,11 @@ import type { Project } from "@/types";
  * Editing guide:
  *  - `featured: true`  → appears in Selected Projects. Exactly the four
  *                        flagship projects are featured (a test enforces it).
- *  - `screenshot`      → path under /public for a REAL screenshot only.
- *                        When omitted, neutral generated art is shown —
- *                        never invent an image.
+ *  - `screenshot`      → path under /public for a REAL screenshot only —
+ *                        prefix with import.meta.env.BASE_URL (see rover-ui)
+ *                        so it resolves on GitHub Pages. When omitted,
+ *                        neutral generated art is shown — never invent an
+ *                        image.
  *  - Every claim below was verified against the actual repositories in
  *    October 2026. Keep it that way — no invented features or metrics.
  *
@@ -33,7 +35,8 @@ export const projects: Project[] = [
     year: "2026",
     status: "active",
     role: "Personal project — design & frontend",
-    screenshot: "/images/projects/rover-ui.jpg",
+    // BASE_URL keeps this correct on GitHub Pages (`/portfolio/`) and locally.
+    screenshot: `${import.meta.env.BASE_URL}images/projects/rover-ui.jpg`,
     details: {
       problem:
         "A self-set brief for Team Antigravity's University Rover Challenge effort: a web interface that feels like mission control — a navigable 3D scene as the hub, with data-driven rover dashboards one click away — using only structured JSON as the 'spacecraft data source'.",
@@ -66,7 +69,7 @@ export const projects: Project[] = [
     year: "2026",
     status: "coursework",
     role: "Academic web-development project — backend & frontend", // NEEDS CONFIRMATION: exact role split
-    screenshot: undefined, // add e.g. "/images/projects/shopsync.jpg" when you capture one
+    screenshot: undefined, // add one (BASE_URL-prefixed, see rover-ui) when you capture a real shot
     details: {
       problem:
         "The project brief was a marketplace where three very different audiences share one platform: customers who buy, independent shop owners who sell, and admins who keep the marketplace trustworthy — built around local payment habits (bKash, Nagad, cash on delivery).",
