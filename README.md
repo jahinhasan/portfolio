@@ -75,9 +75,9 @@ evidence, unfeatured-catalog mismatches, and fabricated demo links.
 
 ## Swapping assets
 
-- **CV**: replace `public/documents/Md_Jahin_Hasan_CV.pdf` with your real CV (same
-  filename, or update `cvPath` in `profile.ts`). The current file is a generated
-  placeholder, clearly footnoted as such.
+- **CV**: `public/documents/Md_Jahin_Hasan_CV.pdf` is the official CV (same
+  filename, or update `cvPath` in `profile.ts`). Regenerate a placeholder with
+  `python3 scripts/generate_cv.py` if ever needed.
 - **OG image**: edit `scripts/og-source.html`, run `npm run og`. Output is a 2400×1260
   (2× DPR) PNG referenced by the social meta tags.
 
@@ -136,5 +136,4 @@ public/            favicon, robots.txt, sitemap.xml, documents/, images/
 - [ ] **LinkedIn** — no URL is invented; add the real one in `src/data/profile.ts`
 - [ ] **Education years** — enrollment/expected graduation are deliberately blank
 - [ ] **ShopSync role split** — confirm how you'd phrase individual vs team contribution
-- [ ] **CV** — replace the generated placeholder with your official document
 - [ ] **Deployment target** — then decide if `base=/portfolio/` (`build:pages`) still applies
